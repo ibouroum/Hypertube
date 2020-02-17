@@ -1,2 +1,2 @@
 # Hypertube
-Streaming website
+A web app to search and watch videos
