@@ -1,69 +1,24 @@
-.container {
-    position: relative;
-    width:300px;
-    height: 300px;
-  }
-  .image {
-    display: block;
-    width : 300px;
-    height: 300px;
-    border-radius: 50%;
-    padding:2%;
-}
-  
-  .overlay {
-    position: absolute;
-    border-radius: 50%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    opacity: 0;
-    transition: .5s ease;
-    background-color: #000000;
-  }
-  
-  .container:hover .overlay {
-    opacity: 0.8;
-  }
-  .icone {
-    background-color: red;
-    border-radius: 40%;
-    height: 100px;
-    width: 100px;
-   position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
-  }
-  .list {
-    position: absolute;
-    width: 80%;
-    
-    
-    
-  }
-  .avatar {
-      border-radius: 50%;
-      width: 100px;
-        height: 100px;
-    }
+.root {
+  background-color:inherit;
+  height: 100%; 
 
-   
-    .title {
-      color: white;
-    }
-    .titleBar {
-      background:'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)';
-    }
-    .root {
-      flex-grow: 1;
-    }
-    /* .img{
-      width: 500px;
-    } */
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.9;
+}
+.gridlist {
+  flex-wrap: nowrap;
+}
+
+
+.image {
+  width: 600px;
+  height: 650px;
+}
+.button {
+
+}
+
+
