@@ -20,24 +20,17 @@
  * Released under the MIT License.
  */
 
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-
 /*!
   Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/classnames
 */
 
-/*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
- */
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
 
 /**!
  * @fileOverview Kickass library to create and place poppers near their reference elements.
@@ -99,14 +92,6 @@ object-assign
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-/*!
-  * $script.js JS loader & dependency manager
-  * https://github.com/ded/script.js
-  * (c) Dustin Diaz 2014 | License MIT
-  */
-
-/*! https://mths.be/utf8js v2.1.2 by @mathias */
 
 /*!
  * Determine if an object is a Buffer

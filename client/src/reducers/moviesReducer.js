@@ -11,7 +11,7 @@ export default function (state = DEFAULT_STATE, action) {
     switch (action.type) {
         case GET_MOVIES:
         {
-            if(action.indice === 1)
+            if(action.filter.page === 1)
                 return {status: 'loading', movies: []};
             else
                 return {status: 'loading2', movies: [...state.movies]};

@@ -5,20 +5,20 @@ import {GetMoviesError, GetMoviesSuccess} from '../actions/moviesAction';
 import {request} from './helper';
 
 const getMovies =
-    function *getMovies ({indice}) {
+    function *getMovies ({filter}) {
         try {
             // const id = yield select((state) => state.user.id);
             // const token = yield select((state) => state.user.token);
             const response = yield call(request, {
                 "url": 'http://localhost:5000/getMovies',
-                "data": {page:  indice},
+                "data": {filter:  filter},
                 "method": "POST"
             });
             if(response.data.length > 0){
                 let oldData = yield select ((state) => state.movies.movies)
                 let newData = response.data;
                 let data = null;
-                if(indice.indice !== 0)
+                if(filter.page !== 0)
                     data = oldData.concat(newData);
                 else
                     data = newData;

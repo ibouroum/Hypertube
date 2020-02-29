@@ -9,13 +9,11 @@ import FilterListSharpIcon from '@material-ui/icons/FilterListSharp';
 import Fab from '@material-ui/core/Fab';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import TextField from '@material-ui/core/TextField';
-import CardContent from '@material-ui/core/CardContent';
 import Select from 'react-select';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import Slider from '@material-ui/core/Slider';
+import { CircularProgress, Button } from '@material-ui/core';
+import InputAdornment from "@material-ui/core/InputAdornment";
 import './home.css'
 
 const useStyles = makeStyles(theme => ({
@@ -28,105 +26,86 @@ const useStyles = makeStyles(theme => ({
     rating: {
         maxWidth:400
     },
+    block: {
+        display: 'block',
+    },
+    none: {
+        display: 'none',
+    },
+    loading : {
+        position: 'fixed',
+        top: '50%',
+    }
 }));
 
 export default function Home(props) {
-    const {movies} = props;
+    const {movies, handleChangeSort, handleChangeCategory, handleChangeSearch, handleSubmitSearch} = props;
     const classes = useStyles();
     const [filter, setFilter] = React.useState(false);
     const [search, setSearch] = React.useState(false);
     return(
         <>
             <Grid className="filterCont" container justify="center" direction="row">
-                
-                    <Tooltip title="Search">
-                        <IconButton aria-label="Search" onClick={() => {setSearch(!search); filter && setFilter(!filter)}}>
-                            <SearchSharpIcon className="searchButton" color="primary" fontSize="large"/>
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Filter">
-                        <IconButton aria-label="Filter" onClick={() => {search && setSearch(!search); setFilter(!filter)}}>
-                            <FilterListSharpIcon className="filterButton" color="primary" fontSize="large"/>
-                        </IconButton>
-                    </Tooltip>
+                <Tooltip title="Search">
+                    <IconButton aria-label="Search" onClick={() => {setSearch(!search); filter === true  && setFilter(false)}}>
+                        <SearchSharpIcon className="searchButton" color="primary" fontSize="large"/>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Filter">
+                    <IconButton aria-label="Filter" onClick={() => {search && setSearch(!search); setFilter(!filter)}}>
+                        <FilterListSharpIcon className="filterButton" color="primary" fontSize="large"/>
+                    </IconButton>
+                </Tooltip>
             </Grid>
             <Grid className="filterCont" container alignContent="center" direction="column">
-                {search &&
-                <Grid item xs={12}>
+                {search && <Grid item xs={12}>
                     <TextField
                         placeholder="Find a movie ..."
+                        InputProps={{
+                            endAdornment: (
+                            <InputAdornment>
+                                <Button onClick={handleSubmitSearch}>Search</Button>
+                            </InputAdornment>
+                            )
+                        }}
+                        onChange={handleChangeSearch}
                     />
                 </Grid>}
-                {filter &&
-                <Grid item xs={12}>
-                    <CardContent>
-                        <Grid container justify="center" spacing={2} xs={12}>
-                            <Grid item xs={6} className={classes.rating}>
-                                <Tooltip title ="DESC">
-                                    <IconButton aria-label="View"  >
-                                        <KeyboardArrowDownIcon  color="primary"/>
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title ="ASC">
-                                    <IconButton aria-label="View"  >
-                                        <ExpandLessIcon  color="primary"/>
-                                    </IconButton>
-                                </Tooltip>
-                                <Typography id="range-slider1" gutterBottom align="center">
-                                    Rating
-                                </Typography>
-                                <Slider
-                                    //value={rating}
-                                    //onChange={handleChangeRating}
-                                    valueLabelDisplay="auto"
-                                    aria-labelledby="range-slider"
-                                    step={0.2}
-                                    //marks={marks}
-                                    min={0}
-                                    max={10}
-                                />
-                            </Grid>
-                            <Grid item xs={6} className={classes.rating}>
-                                <Tooltip title ="DESC">
-                                    <IconButton aria-label="View" >
-                                        <KeyboardArrowDownIcon  color="primary"/>
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title ="ASC">
-                                    <IconButton aria-label="View">
-                                        <ExpandLessIcon  color="primary"/>
-                                    </IconButton>
-                                </Tooltip>
-                                <Typography id="range-slider2" gutterBottom align="center">
-                                    Production year
-                                </Typography>
-                                <Slider
-                                    //value={age}
-                                    //onChange={handleChangeAge}
-                                    valueLabelDisplay="auto"
-                                    aria-labelledby="range-slider"
-                                    step={1}
-                                    min={1910}
-                                    max={2020}
-                                />
-                            </Grid>
-                            <Grid item xs={12} className={classes.rating}>
-                                
-                                <Typography id="range-slider5" gutterBottom align="center">
-                                    Category
-                                </Typography>
-                                <Select
-                                    isClearable={false}
-                                    //onChange={handleChangeTags}
-                                    options={[{'label': 'Action', 'label' : 'Animation'}]}
-                                    //styles={customStyles}
-                                    placeholder="Select a category"
-                                />
-                            </Grid>
+                {filter && <Grid  item xs={12}>
+                    <Grid container justify="center" spacing={2}>
+                        <Grid className={classes.rating} item xs={12} >
+                            <Typography id="range-slider5" gutterBottom align="center">
+                                Category
+                            </Typography>
+                            <Select
+                                isClearable={false}
+                                onChange={handleChangeCategory}
+                                options={[{'label': 'Animation', 'value' : 'animation'}]}
+                                //styles={customStyles}
+                                placeholder="Select a category"
+                            />
                         </Grid>
-                    </CardContent>
+                        <Grid item xs={12} className={classes.rating}>
+                            <Typography id="range-slider5" gutterBottom align="center">
+                                Sort by
+                            </Typography>
+                            <Select
+                                isClearable={false}
+                                onChange={handleChangeSort}
+                                options={[  {'label': 'Year', 'value': 'year'},
+                                            {'label': 'Rating', 'value': 'rating'},
+                                            {'label': 'Last added', 'value': 'last_added'},
+                                            {'label': 'Trending', 'value':'trending'}
+                                        ]}
+                                //styles={customStyles}
+                                placeholder="Select ..."
+                            />
+                        </Grid>
+                    </Grid>
                 </Grid>}
             </Grid>
+            {movies.status !== 'loading' &&
+            <>
             <Grid container justify="center">
                 <Fab    className={classes.upBtn}
                         color="primary"
@@ -161,7 +140,9 @@ export default function Home(props) {
                 </React.Fragment>
                 ))}
             </Grid>
-        
+            </>
+            }
+            {movies.status === 'loading' && <Grid className={classes.loading} container justify="center"><CircularProgress fontSize="large" color="primary"/></Grid>}
         </>
     );
 }
