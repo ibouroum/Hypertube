@@ -1,24 +1,22 @@
 .root {
   background-color:inherit;
   height: 100%; 
-
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0.9;
+  margin: 15px;
 }
-.gridlist {
-  flex-wrap: nowrap;
-}
-
-
 .image {
   width: 600px;
   height: 650px;
 }
-.button {
-
+.commentTextField {
+  width: 1000px;
+  margin: 70px;
+}
+.textField {
+  width: 1000px;
 }
 
 
