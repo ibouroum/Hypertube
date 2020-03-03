@@ -20,6 +20,7 @@ import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AppsIcon from '@material-ui/icons/Apps';
+import { Avatar } from '@material-ui/core';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -149,6 +150,7 @@ function NavBar(props) {
         }}
       >
         <div className={classes.drawerHeader}>
+          {/* <Avatar/> */}
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon color="primary"/> : <ChevronRightIcon />}
           </IconButton>
