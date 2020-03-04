@@ -1,7 +1,7 @@
 import {takeLatest, put,call, select} from "redux-saga/effects";
 //import {push} from "react-router-redux";
 //import {resetState} from '../actions/resetStateAction';
-import {GetMoviesError, GetMoviesSuccess} from '../actions/moviesAction';
+import {GetMoviesError, GetMoviesSuccess,getMovieDataSuccess,getMovieDataError} from '../actions/moviesAction';
 import {request} from './helper';
 
 const getMovies =
@@ -33,6 +33,31 @@ const getMovies =
         }
     };
 
+    const getMovieData =
+    function *getMovieData ({imdb}) {
+        try {
+            console.log('imdb = '+ imdb)
+            const response = yield call(request, {
+                "url": 'http://localhost:5000/getMovieData',
+                "data": {imdb:  imdb},
+                "method": "POST"
+            });
+            //console.log("ervdsvsdv"+response.data)
+            if(response.data){
+                
+                yield put(getMovieDataSuccess(response.data));
+            }
+            else
+                yield put(getMovieDataError('error'));
+        }catch (error) {
+            if (error.response) {
+                yield put(getMovieDataError("error"));
+            }
+        }
+    };
+
 export default function *() {
     yield takeLatest("GET_MOVIES", getMovies);
+    yield takeLatest("GET_MOVIE_DATA", getMovieData);
+
 }

@@ -6,7 +6,7 @@ import {reducer as form} from "redux-form";
 import resetPasswordReducer from "./resetPasswordReducer";
 import userReducer from './userReducer';
 import moviesReducer from './moviesReducer';
-
+import movieDetails from './movieDetails';
 const combinedReducer = (history)=> combineReducers({
     "router" : connectRouter(history),
     "register" : registerReducer,
@@ -14,6 +14,7 @@ const combinedReducer = (history)=> combineReducers({
     "resetPassword": resetPasswordReducer,
     "user" : userReducer,
     "movies": moviesReducer,
+    "movieDetails" : movieDetails,
     form
 });
 export default combinedReducer;

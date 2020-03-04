@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Home(props) {
-    const {movies, handleChangeSort, handleChangeCategory, handleChangeSearch, handleSubmitSearch} = props;
+    const {movies, handleChangeSort, handleChangeCategory, handleChangeSearch, handleSubmitSearch,handleMovie} = props;
     const classes = useStyles();
     const [filter, setFilter] = React.useState(false);
     const [search, setSearch] = React.useState(false);
@@ -124,16 +124,18 @@ export default function Home(props) {
                             src={(element.medium_cover_image && 'https://img.'+element.medium_cover_image.split('https://')[1] )|| (element.images.poster)} 
                             alt={element.title_long || element.title}
                         />
-                        <div className="overlay">
-                            <div className="text">
-                                <h1>{element.title_long || element.title + (element.year && ` (${element.year})`)}</h1>
-                                <Typography component="legend">
-                                    <StarIcon style={{fill: 'yellow'}}/>({
-                                    (element.rating.percentage && (element.rating.percentage * 10 / 100).toFixed(1)) || 
-                                    (element.rating && (element.rating * 1).toFixed(1))}/10)
-                                </Typography>
+                        <button onClick={(e) => handleMovie(element)} >
+                            <div className="overlay">
+                                <div className="text">
+                                    <h1>{element.title_long || element.title + (element.year && ` (${element.year})`)}</h1>
+                                    <Typography component="legend">
+                                        <StarIcon style={{fill: 'yellow'}}/>({
+                                        (element.rating.percentage && (element.rating.percentage * 10 / 100).toFixed(1)) || 
+                                        (element.rating && (element.rating * 1).toFixed(1))}/10)
+                                    </Typography>
+                                </div>
                             </div>
-                        </div>
+                        </button>
                     </div>
                 </Card>
                 }

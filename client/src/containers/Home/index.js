@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react'
 import {connect} from "react-redux";
 import Home from "../../components/Home";
 import {GetMovies} from '../../actions/moviesAction';
-
+import ProfileMovie from '../../components/profileMovie';
+import { Redirect,useHistory } from "react-router-dom";
 const HomeContainer = (props) => {
+    let history = useHistory();
     const {movies, getMovies} = props;
     const [filter, setFilter] = useState({
         page: 1,
@@ -30,6 +32,10 @@ const HomeContainer = (props) => {
             sortBy: null,
             category: null,
         })
+    }
+    const handleMovie = (data) =>{
+        //console.log(data.imdb_id)
+        history.push(`/view/${data.imdb_id}`)
     }
     const handleSubmitSearch = (e) => {
         filter.title && console.log(filter);
@@ -68,6 +74,7 @@ const HomeContainer = (props) => {
                     handleSubmitSearch={handleSubmitSearch}
                     handleChangeCategory={handleChangeCategory}
                     handleChangeSort={handleChangeSort}
+                    handleMovie={handleMovie}
             />
         </div>
     )
