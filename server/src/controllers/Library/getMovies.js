@@ -1,4 +1,3 @@
-const user = require ('../../models/user');
 let cloudscraper = require('cloudscraper');
 
 getMovies = (req, res) => {

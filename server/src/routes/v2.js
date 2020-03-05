@@ -9,6 +9,7 @@ const checkConfirmToken = require('../controllers/User/checkConfirmToken');
 const sendResetEmail = require('../controllers/User/sendResetEmail');
 const resetPassword = require('../controllers/User/resetPassword');
 const getMovies = require('../controllers/Library/getMovies');
+const getMovieData = require('../controllers/Library/getMovieData');
 
 router.post('/login', Login);
 router.post('/register', Register);
@@ -18,5 +19,5 @@ router.post('/confirmEmail', checkConfirmToken);
 router.post('/sendResetEmail', sendResetEmail);
 router.post('/resetPassword', resetPassword);
 router.post('/getMovies', getMovies);
-
+router.post('/getMovieData',getMovieData);
 module.exports = router;
