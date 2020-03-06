@@ -4,7 +4,6 @@ import {resetState} from '../actions/resetStateAction';
 import {loginError, loginUserSuccess,loginErrorField} from "../actions/loginAction";
 import {updateUserSuccess} from '../actions/userAction'
 import {request} from './helper';
-import socket from '../socketConn';
 
 const login =
   function *login ({data}) {
@@ -25,9 +24,7 @@ const login =
         const  user = response.data.user;
         yield put(loginUserSuccess());
         yield put(updateUserSuccess(user));
-        
-        socket.emit('join', {id: user.id});
-        yield put(push("/home"));
+        yield put(push("/"));
       }
       else
       {

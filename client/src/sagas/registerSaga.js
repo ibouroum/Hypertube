@@ -1,14 +1,20 @@
-import {takeLatest, put,delay} from "redux-saga/effects";
+import { takeLatest,call, put ,select, delay} from "redux-saga/effects";
 import {push} from "react-router-redux";
+import {request} from './helper';
 import {resetState} from '../actions/resetStateAction';
 import {inscriptionError, inscriptionUserSuccess, EmailConfirmationSuccess, EmailConfirmationError} from "../actions/registerAction";
 import axios from 'axios'
 
+
 const inscription =
   function *inscription ({data}) {
     try {
-    
-      const response = yield axios.post('http://localhost:5000/register', data)
+      console.log(data)
+      const response = yield call(request, {
+        "url": 'http://localhost:5000/register',
+        data,
+        "method": "POST"
+    });
       if(response.data.isValid){
         yield put(inscriptionUserSuccess(data));
         yield put(push("/login"));
@@ -32,6 +38,7 @@ const inscription =
     }
   };
 
+
 const emailConfirm =
 function *emailConfirm ({token}) {
   try {
@@ -53,5 +60,6 @@ function *emailConfirm ({token}) {
 
 export default function *() {
   yield takeLatest("INSCRIPTION_USER", inscription);
+
   yield takeLatest("EMAIL_CONFIRMATION", emailConfirm);
 }

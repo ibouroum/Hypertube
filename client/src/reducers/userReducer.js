@@ -1,6 +1,8 @@
 import {
   UPDATE_USER_SUCCESS,
 } from "../actions/userAction";
+
+
 import { CLEAR_USER_INFORMATION } from '../actions/logoutAction';
 
 export default function (state = null, action) {

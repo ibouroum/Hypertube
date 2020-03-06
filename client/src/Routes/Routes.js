@@ -8,6 +8,7 @@ import ForgotPasswordContainer from '../containers/sendEmail';
 import EmailConfirmCont from '../containers/emailConfirmation';
 import ResetPasswordContainer from '../containers/resetPassword';
 import HomeContainer from '../containers/Home';
+// import Profile from '../container/Profile'
 
 const Routes = () => {
     return (
@@ -19,6 +20,7 @@ const Routes = () => {
                 <Route exact path="/register"  component={ RegisterContainer} />
                 <Route exact path="/login"  component={ loginContainer}/>
                 <Route exact path="/"  component={ HomeContainer}/>
+                {/* <Route exact path="/profile" component={Profile}/> */}
                 <Route path="" component={NotFoundPage}/>
             </Switch>
         </>

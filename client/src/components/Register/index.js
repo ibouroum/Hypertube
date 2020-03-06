@@ -12,6 +12,9 @@ import Container from '@material-ui/core/Container';
 import renderField from '../commun/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MyFlash from '../commun/flash';
+import AddIcon from '@material-ui/icons/Add';
+import IconButton from '@material-ui/core/IconButton';
+import { Message} from "semantic-ui-react";
 
 const useStyles = makeStyles(theme => ({
   
@@ -32,13 +35,30 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  input: {
+    display: 'none',
+  },
+  add : {
+    display: 'none',
+  },
 }));
 
-
 const Register = (props) => {
-  const {handleSubmit, status, err} = props;
+  const {handleSubmit, status, err,fileChangedHandler} = props;
   const classes = useStyles();
-  
+  const renderPicture = ({input,meta:{ touched, error }}) =>{
+    return (
+      <div>
+        <input accept="image/*" className={classes.input} id="icon-button-file" type="file"  onChange={event => fileChangedHandler(event,input)}/>
+        <label htmlFor="icon-button-file">
+          <IconButton color="primary" aria-label="upload picture" component="span">
+            <AddIcon  style={{fontSize : 70}} />
+          </IconButton>
+          </label>
+          {error && touched && <Message negative content={error} />}
+        </div>
+    )
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -51,7 +71,12 @@ const Register = (props) => {
         <Typography component="h1" variant="h5" color="primary">
           Sign up
         </Typography>
+       
         <form  className={classes.form}>
+        <Field 
+          name="picture"
+          component={renderPicture}
+        />
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
             <Field

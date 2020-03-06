@@ -3,9 +3,13 @@ const bcrypt = require ('bcrypt');
 const crypto = require('crypto');
 const user = require('../../models/user');
 const EM = require('./email');
-
+const checkPicture = require('./checkPicture');
    Register = async (req, res) => {
-   const {firstname, lastname, username, email, password, confirmPassword} = req.body;
+      
+   const {firstname, lastname, username, email, password, confirmPassword,picture} = req.body;
+   console.log(picture)
+   const isImage = checkPicture(picture);
+   console.log(isImage)
    let GetUserByUsername = await  user.getUser('GetUserByUsername',username);
    let GetUserByEmail = await  user.getUser('GetUserByEmail',email);
    let data = {

@@ -2,8 +2,8 @@
     "dev": {
     "host": "localhost",
     "user": "root",
-    "password": "tiger",
-    "database": "MATCHA",
+    "password": "5Comrzyh@@@",
+    "database": "HyperTube",
     "driver": "mysql",
     "multipleStatements": true
     },"sql-file": true

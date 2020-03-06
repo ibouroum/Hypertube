@@ -5,7 +5,7 @@ const SELECT = queries.SELECT;
 const INSERT = queries.INSERT;
 const UPDATE = queries.UPDATE;
 const DELETE = queries.DELETE;
-
+const tools = require('../tools')
 module.exports = {
     Register :function  (lastname, firstname, username, email, password) {
         conn.query(INSERT.AddUser, [lastname, firstname, username, email, password],(err,res) => {
@@ -15,7 +15,7 @@ module.exports = {
             }
         });
     },
-    getUser:  function  (type, value) {
+    getUser:   function  (type, value) {
         return new Promise ( (resolve, reject) =>  {
              conn.query(SELECT[type], value,(err,res) => {
                 if(err)
@@ -23,21 +23,11 @@ module.exports = {
                 else
                 {
                     const data = JSON.parse(JSON.stringify(res));
-                    if(data[0])
-                    {
-                       this.getUserInterests(data[0].id)
-                        .then(async (response) => {
-                            interests  = response;
-                            data[0].birthday = data[0].transDate;
-                            data[0].interests = interests;
-                            let token = await jwt.sign(data[0], 'fuckingSecretKey');
-                            data[0].token = token;
-                            resolve(data[0]);
-                        }).catch((error)  => {console.log(error)})
-                    }else
-                    {
-                        resolve(null)
-                    }
+                    
+            
+                    //console.log(data)       
+                    resolve(data[0]);
+                     
                 }
             });
         })
@@ -68,7 +58,12 @@ module.exports = {
                 if(err)
                     reject(err);
                 else
-                    resolve(JSON.parse(JSON.stringify(res)));
+                {
+                    if(tools.isEmpty(res))
+                        resolve(false)
+                    else
+                    resolve(JSON.parse(JSON.stringify(res[0])));
+                }
             });
         })
     },

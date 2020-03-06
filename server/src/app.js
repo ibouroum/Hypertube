@@ -4,7 +4,7 @@ const bodyparser = require('body-parser');
 const v1 = require('./routes/v1');
 const v2 = require('./routes/v2');
 const cors = require('cors')
-const up = require('../src/controllers/uploadFile')
+//const up = require('../src/controllers/uploadFile')
 const app = express();
 
 app.use(express.static('public'));
@@ -20,7 +20,7 @@ app.use(cors());
 
 // ------------- Routes  ------------- //
 app.use(v2);
-app.use(up)
+//app.use(up)
 app.use(v1);
 
 // ------------- ERR  ------------- //
