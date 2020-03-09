@@ -1,3 +1,4 @@
+
 import React ,{useEffect,useState}from 'react'
 import ViewMovie from '../../components/profileMovie'
 import {getMovieData,getSimilarMovie} from '../../actions/moviesAction';
@@ -49,7 +50,5 @@ const mapStateToProps = (state) =>({
     "movieDetails" : state.movieDetails,
     "similarMovies" : state.similarMovies.results
 });
-
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(ViewMovieContainer);

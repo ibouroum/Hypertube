@@ -20,7 +20,7 @@ import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AppsIcon from '@material-ui/icons/Apps';
-import { Avatar } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -75,7 +75,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function NavBar(props) {
-  const {user, handleLogout} = props;
+  const {user, handleLogout, handleChangeLang} = props;
+  const { t } = useTranslation();
 
   const loggedInMenu = [
     {"text" : "Home","path" : "/", icon: <AppsIcon color="secondary"/>},
@@ -131,15 +132,14 @@ function NavBar(props) {
           
           <Typography variant="h6"  color="primary" className={classes.title}>
               <Link to="/" style={{textDecoration: 'none', color:'inherit'}}>
-                HYPERTUBE
+                {t('login_screen.username')}
               </Link>
-             
           </Typography>
-          
+          <Button color="primary" onClick={handleChangeLang}>ChangeLang</Button>
           {user && user.token && <Button color="primary" onClick={handleLogout}>Logout</Button>}
         </Toolbar>
       </AppBar>
-      
+
       <Drawer
         className={classes.drawer}
         variant="persistent"

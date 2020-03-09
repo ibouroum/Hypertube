@@ -8,6 +8,8 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Tooltip from '@material-ui/core/Tooltip';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import Button from '@material-ui/core/Button';
@@ -169,5 +171,4 @@ const ViewMovie = (props) => {
     </>
   )
 }
-
 export default ViewMovie;

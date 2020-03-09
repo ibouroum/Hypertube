@@ -39,7 +39,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Home(props) {
-    const {movies, handleChangeSort, handleChangeCategory, handleChangeSearch, handleSubmitSearch,handleMovie} = props;
+
+    const {initializeFilter, movies, handleChangeSort, handleChangeCategory, handleChangeSearch, handleSubmitSearch,handleMovie} = props;
     const classes = useStyles();
     const [filter, setFilter] = React.useState(false);
     const [search, setSearch] = React.useState(false);
@@ -47,12 +48,12 @@ export default function Home(props) {
         <>
             <Grid className="filterCont" container justify="center" direction="row">
                 <Tooltip title="Search">
-                    <IconButton aria-label="Search" onClick={() => {setSearch(!search); filter === true  && setFilter(false)}}>
+                    <IconButton aria-label="Search" onClick={() => {initializeFilter(); setSearch(!search); filter === true  && setFilter(false)}}>
                         <SearchSharpIcon className="searchButton" color="primary" fontSize="large"/>
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Filter">
-                    <IconButton aria-label="Filter" onClick={() => {search && setSearch(!search); setFilter(!filter)}}>
+                    <IconButton aria-label="Filter" onClick={() => {initializeFilter(); search && setSearch(!search); setFilter(!filter)}}>
                         <FilterListSharpIcon className="filterButton" color="primary" fontSize="large"/>
                     </IconButton>
                 </Tooltip>
@@ -80,7 +81,18 @@ export default function Home(props) {
                             <Select
                                 isClearable={false}
                                 onChange={handleChangeCategory}
-                                options={[{'label': 'Animation', 'value' : 'animation'}]}
+                                options={[
+                                    {'value': 'animation', 'label' : 'Animation'},
+                                    { value: 'action', label: 'Action'},
+                                    { value: 'adventure', label: 'Adventure'},
+                                    { value: 'comedy', label: 'Comedy'},
+                                    { value: 'drama', label: 'Drama'},
+                                    { value: 'horror', label: 'Horror'},
+                                    { value: 'music', label: 'Music'},
+                                    { value: 'romance', label: 'Romance'},
+                                    { value: 'sci-Fi', label: 'Sci-Fi'},
+                                    { value: 'thriller', label: 'Thriller'}
+                                ]}
                                 //styles={customStyles}
                                 placeholder="Select a category"
                             />
@@ -110,11 +122,11 @@ export default function Home(props) {
                 <Fab    className={classes.upBtn}
                         color="primary"
                         size="medium"
-                        onClick={() => {document.documentElement.scrollTop = 0}}
+                        onClick={() => {window.scrollTo({top: 0, behavior: 'smooth'});}}
                 >
                     <KeyboardArrowUpIcon />
                 </Fab>
-                {movies.movies && movies.movies.map((element, index) =>  (
+                {movies.movies && movies.movies.length > 0 && movies.movies.map((element, index) =>  (
                 <React.Fragment key={index}>
                 {((element.medium_cover_image) || (element.images.poster && element.images.poster !== 'N/A' && element.images.poster !== 'images/posterholder.png')) &&
                 <Card className="card">
@@ -141,6 +153,7 @@ export default function Home(props) {
                 }
                 </React.Fragment>
                 ))}
+                {movies.movies && movies.movies.length === 0 && <p className="noMovies">No movies found</p>}
             </Grid>
             </>
             }

@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const Register = require('../controllers/User/register');
 const Login = require('../controllers/User/login');
 const availableUsername = require('../controllers/User/availableUsername');
@@ -12,6 +11,7 @@ const getMovies = require('../controllers/Library/getMovies');
 const getMovieData = require('../controllers/Library/getMovieData');
 const streaming = require('../controllers/Library/streaming');
 const getSimilarMovies = require('../controllers/Library/getSimilarMovies')
+
 router.post('/login', Login);
 router.post('/register', Register);
 router.post('/availableEmail',availableEmail);
@@ -23,4 +23,5 @@ router.post('/getMovies', getMovies);
 router.post('/getMovieData',getMovieData);
 router.get('/streaming/:hash',streaming);
 router.post('/getSimilarMovies',getSimilarMovies);
+
 module.exports = router;

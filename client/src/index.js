@@ -11,14 +11,15 @@ import {persistStore} from "redux-persist";
 import {PersistGate} from "redux-persist/lib/integration/react";
 
 
-const  store = configureStore();
-const persistor = persistStore(store);
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
 styleLink.href ="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";
+
+const  store = configureStore();
+const persistor = persistStore(store);
+
 document.head.appendChild(styleLink);
 ReactDOM.render(
-
 
 <Provider store = {store}>
     <PersistGate loading={null} persistor={persistor}>
