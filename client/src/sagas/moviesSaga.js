@@ -1,14 +1,12 @@
 import {takeLatest, put,call, select} from "redux-saga/effects";
 //import {push} from "react-router-redux";
 //import {resetState} from '../actions/resetStateAction';
-import {GetMoviesError, GetMoviesSuccess,getMovieDataSuccess,getMovieDataError} from '../actions/moviesAction';
+import {GetMoviesError, GetMoviesSuccess,getMovieDataSuccess,getMovieDataError,getSimilarMoviesError,getSimilarMoviesSuccess} from '../actions/moviesAction';
 import {request} from './helper';
 
 const getMovies =
     function *getMovies ({filter}) {
         try {
-            // const id = yield select((state) => state.user.id);
-            // const token = yield select((state) => state.user.token);
             const response = yield call(request, {
                 "url": 'http://localhost:5000/getMovies',
                 "data": {filter:  filter},
@@ -34,18 +32,21 @@ const getMovies =
     };
 
     const getMovieData =
-    function *getMovieData ({imdb}) {
+    function *getMovieData ({data}) {
         try {
-            console.log('imdb = '+ imdb)
+        
+           
             const response = yield call(request, {
                 "url": 'http://localhost:5000/getMovieData',
-                "data": {imdb:  imdb},
+                "data": data,
                 "method": "POST"
             });
-            //console.log("ervdsvsdv"+response.data)
-            if(response.data){
-                
-                yield put(getMovieDataSuccess(response.data));
+            let res = response.data;
+            if(res){
+                if(res.isData === true)
+                    yield put(getMovieDataSuccess(res.data));
+                else if(res.isData === false)
+                    yield put(getMovieDataError('error'));
             }
             else
                 yield put(getMovieDataError('error'));
@@ -55,9 +56,31 @@ const getMovies =
             }
         }
     };
+    const getSimilarMovies =
+    function *getSimilarMovies ({data}) {
+        try {
+            const response = yield call(request, {
+                "url": 'http://localhost:5000/getSimilarMovies',
+                "data": data,
+                "method": "POST"
+            });
+           
+            if(response.data){
+                
+                yield put(getSimilarMoviesSuccess(response.data));
+            }
+            else
+                yield put(getSimilarMoviesError('error'));
+        }catch (error) {
+            if (error.response) {
+                yield put(getSimilarMoviesError("error"));
+            }
+        }
+    };
 
 export default function *() {
     yield takeLatest("GET_MOVIES", getMovies);
     yield takeLatest("GET_MOVIE_DATA", getMovieData);
+    yield takeLatest("GET_SIMILAR_MOVIES", getSimilarMovies);
 
 }

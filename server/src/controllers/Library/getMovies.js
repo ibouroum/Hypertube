@@ -3,7 +3,6 @@ let cloudscraper = require('cloudscraper');
 
 getMovies = (req, res) => {
     const filter = req.body.filter;
-    console.log(filter);
     cloudscraper.get(`https://tv-v2.api-fetch.website/movies/${filter.page}?sort=trending&genre=&order=-1`)
     .then(resp => {
         let result1 = JSON.parse(resp);

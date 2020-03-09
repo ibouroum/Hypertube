@@ -7,6 +7,7 @@ import resetPasswordReducer from "./resetPasswordReducer";
 import userReducer from './userReducer';
 import moviesReducer from './moviesReducer';
 import movieDetails from './movieDetails';
+import similarMovies from './similarMovies'
 const combinedReducer = (history)=> combineReducers({
     "router" : connectRouter(history),
     "register" : registerReducer,
@@ -15,6 +16,7 @@ const combinedReducer = (history)=> combineReducers({
     "user" : userReducer,
     "movies": moviesReducer,
     "movieDetails" : movieDetails,
+    "similarMovies" : similarMovies,
     form
 });
 export default combinedReducer;

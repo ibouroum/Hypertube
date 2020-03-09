@@ -15,8 +15,7 @@ export default function (state = DEFAULT_STATE, action) {
                 return {status: 'loading', movies: []};
             else
                 return {status: 'loading2', movies: [...state.movies]};
-        }
-            
+        }  
         case GET_MOVIES_SUCCESS:
             return {status: 'success', movies: action.data};
         case GET_MOVIES_ERROR:

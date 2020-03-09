@@ -1,18 +1,19 @@
 import {
-    GET_MOVIE_DATA_SUCCESS,GET_MOVIE_DATA_ERROR
+    GET_MOVIE_DATA,GET_MOVIE_DATA_SUCCESS,GET_MOVIE_DATA_ERROR
 } from "../actions/moviesAction";
   
 const DEFAULT_STATE = {
-    status: 'default',
-    movies: [],
+    movies: null,
 };
 
 export default function (state = DEFAULT_STATE, action) {
     switch (action.type) {
+        case GET_MOVIE_DATA :
+            return ('loading')
         case GET_MOVIE_DATA_SUCCESS :
-            return {status : 'success', movieInfo : action.data }
+            return (action.data)
         case GET_MOVIE_DATA_ERROR :
-            return {status : 'error', movieInfo : action.error}  
+            return 'error'
         default:
           return state;
     }

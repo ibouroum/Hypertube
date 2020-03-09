@@ -33,8 +33,8 @@ const HomeContainer = (props) => {
             category: null,
         })
     }
+  
     const handleMovie = (data) =>{
-        //console.log(data.imdb_id)
         history.push(`/view/${data.imdb_id}`)
     }
     const handleSubmitSearch = (e) => {
@@ -63,7 +63,7 @@ const HomeContainer = (props) => {
             sortBy: newValue.value,
             category: filter.category,
         })
-        console.log(filter);
+        //console.log(filter);
         //getMovies({...filter, page: 1});
     }
     return (
