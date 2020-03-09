@@ -10,6 +10,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import {persistStore} from "redux-persist";
 import {PersistGate} from "redux-persist/lib/integration/react";
 
+
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
 styleLink.href ="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.min.css";

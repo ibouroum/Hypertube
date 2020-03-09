@@ -150,6 +150,7 @@ function NavBar(props) {
         }}
       >
         <div className={classes.drawerHeader}>
+          {/* <Avatar/> */}
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon color="primary"/> : <ChevronRightIcon />}
           </IconButton>

@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Home(props) {
+
     const {initializeFilter, movies, handleChangeSort, handleChangeCategory, handleChangeSearch, handleSubmitSearch,handleMovie} = props;
     const classes = useStyles();
     const [filter, setFilter] = React.useState(false);

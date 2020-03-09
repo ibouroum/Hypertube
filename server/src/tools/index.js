@@ -23,6 +23,7 @@ const isInterest = require("./user/isInterest")
 const isLatitude = require("./user/isLatitude")
 const isLongitude = require("./user/isLongitude")
 
+
 const isSort = require("./movieFilter/isSort")
 const isCategory = require("./movieFilter/isCategory")
 const isPage = require("./movieFilter/isPage")
