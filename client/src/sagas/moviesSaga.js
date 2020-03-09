@@ -14,7 +14,7 @@ const getMovies =
                 "data": {filter:  filter},
                 "method": "POST"
             });
-            if(response.data.length > 0){
+            //if(response.data.length > 0){
                 let oldData = yield select ((state) => state.movies.movies)
                 let newData = response.data;
                 let data = null;
@@ -23,9 +23,9 @@ const getMovies =
                 else
                     data = newData;
                 yield put(GetMoviesSuccess(data));
-            }
-            else
-                yield put(GetMoviesError('error'));
+            // }
+            // else
+            //     yield put(GetMoviesError('error'));
         }catch (error) {
             if (error.response) {
                 yield put(GetMoviesError("error.response.statusText", "error.response.status"));
@@ -44,7 +44,6 @@ const getMovies =
             });
             //console.log("ervdsvsdv"+response.data)
             if(response.data){
-                
                 yield put(getMovieDataSuccess(response.data));
             }
             else

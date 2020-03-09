@@ -1,0 +1,8 @@
+{
+    "login_screen": {
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "sign_in": "Se connecter",
+      "forget_password": "Mot de passe oublié"
+    }
+}

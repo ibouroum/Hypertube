@@ -16,35 +16,38 @@ const HomeContainer = (props) => {
     });
     useEffect(() => {
         getMovies(filter);
-        setFilter({...filter, page: filter.page + 1});
         return () => reset()
     }, []);
     window.onscroll = function(ev) {
-        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight){
             if(movies.status === 'success' && history.location.pathname === '/'){
-                //console.log(filter);
-                getMovies(filter);
-                if(filter.sortBy === null && filter.category === null)
-                    setFilter({...filter, page: filter.page + 1});
+                setFilter({...filter, page: filter.page + 1});
+                getMovies({...filter, page: filter.page + 1});
             }
         }
     };
+    const initializeFilter = () => {
+        setFilter({
+            page: 1,
+            title: null,
+            sortBy: null,
+            category: null,
+        })
+    }
     const handleMovie = (data) => {
-        //console.log(data.imdb_id)
         document.documentElement.scrollTop = 0;
         history.push(`/view/${data.imdb_id}`);
     }
     const handleChangeSearch = (e) => {
         setFilter({
-            page: filter.page,
+            page: 1,
             title: e.target.value,
             sortBy: null,
             category: null,
         })
     }
     const handleSubmitSearch = (e) => {
-        filter.title && console.log(filter);
-        //search
+        filter.title && getMovies(filter);
     }
     const handleChangeCategory = (newValue) => {
         setFilter({
@@ -53,15 +56,7 @@ const HomeContainer = (props) => {
             sortBy: filter.sortBy,
             category: newValue.value,
         })
-        console.log({
-            page: 1,
-            title: null,
-            sortBy: filter.sortBy,
-            category: newValue.value,
-        });
-        
-        //setFilter({...filter, page: filter.page + 1});
-        //getMovies({...filter, page: 1});
+        getMovies({page: 1, title: null, sortBy: filter.sortBy, category: newValue.value})
     }
     const handleChangeSort = (newValue) => {
         setFilter({
@@ -70,14 +65,7 @@ const HomeContainer = (props) => {
             sortBy: newValue.value,
             category: filter.category,
         })
-        console.log({
-            page: 1,
-            title: null,
-            category: filter.category,
-            sortBy: newValue.value,
-        });
-        
-        //setFilter({...filter, page: filter.page + 1});
+        getMovies({page: 1, title: null, sortBy: newValue.value, category: filter.category})
     }
     return (
         <div>
@@ -87,7 +75,8 @@ const HomeContainer = (props) => {
                     handleSubmitSearch={handleSubmitSearch}
                     handleChangeCategory={handleChangeCategory}
                     handleChangeSort={handleChangeSort}
-                    handleMovie={handleMovie}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+                    handleMovie={handleMovie}    
+                    initializeFilter={initializeFilter}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
             />
         </div>
     )

@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from '../src/containers/Navbar';
 import Footer from '../src/components/Footer';
 import Routes from './Routes/Routes';
+import './i18n';
 
 function App() {
   return (

@@ -12,7 +12,7 @@ getMovieData = (req, res) => {
         "x-rapidapi-key": "db3470b86dmsh44414db70092568p12b435jsnd73f9b17a0d9"
     }),
     url.end((response) => {
-        console.table(response.body)
+        //console.table(response.body)
                 res.send(response.body);
         })
     ))

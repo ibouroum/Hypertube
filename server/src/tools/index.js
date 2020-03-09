@@ -23,9 +23,15 @@ const isInterest = require("./user/isInterest")
 const isLatitude = require("./user/isLatitude")
 const isLongitude = require("./user/isLongitude")
 
+const isSort = require("./movieFilter/isSort")
+const isCategory = require("./movieFilter/isCategory")
+const isPage = require("./movieFilter/isPage")
+const isTitle = require("./movieFilter/isTitle")
+
 module.exports = {
     isEmpty, isDigit, isLowercase, isUppercase, isSpecial,
     isAlpha, isAlphaNumeric, isNumeric, isFloat, isUsername,
     isEmail, isBirthday, isFirstname, isLastname, isPassword,
-    isProfileComplete, isGender, isOrient, isBio, isInterest, isLatitude, isLongitude, age
+    isProfileComplete, isGender, isOrient, isBio, isInterest, isLatitude, isLongitude, age,
+    isSort, isCategory, isPage, isTitle
 };
