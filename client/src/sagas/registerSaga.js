@@ -9,25 +9,33 @@ import axios from 'axios'
 const inscription =
   function *inscription ({data}) {
     try {
-      console.log(data)
+
       const response = yield call(request, {
-        "url": 'http://localhost:5000/register',
-        data,
-        "method": "POST"
-    });
+        "url": "http://localhost:5000/register",
+        "data": data,
+        "method": "post"
+      });
+      
+      
       if(response.data.isValid){
         yield put(inscriptionUserSuccess(data));
         yield put(push("/login"));
       }
       else{
-        if(response.data.errUsername && !response.data.errEmail){
+        if(response.data.errPicture)
+          yield put(inscriptionError(response.data.errPicture));
+        else if(response.data.errUsername && !response.data.errEmail){
           yield put(inscriptionError(response.data.errUsername));
         }
         else if(response.data.errEmail && !response.data.errUsername){
           yield put(inscriptionError(response.data.errEmail));
         }
+        else if(response.data.errEmail && response.data.errUsername){
+         yield put(inscriptionError('Email and Username Already Exist'));
+        }
         else
-          yield put(inscriptionError('Username and email already exist'));
+          yield put(inscriptionError('Invalid input'));
+        
       }
       yield delay(4000);
       yield put(resetState());

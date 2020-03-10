@@ -4,6 +4,7 @@ import loginSaga from './loginSaga';
 import logoutSaga from "./logoutSaga";
 import resetPasswordSaga from './resetPasswordSaga';
 import moviesSaga from "./moviesSaga";
+import profileSaga from "./profileSaga";
 
 export default function *() {
   yield all([
@@ -12,5 +13,6 @@ export default function *() {
     fork(logoutSaga),
     fork(resetPasswordSaga),
     fork(moviesSaga),
+    fork(profileSaga),
   ]);
 }

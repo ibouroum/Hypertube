@@ -7,8 +7,8 @@ const UPDATE = queries.UPDATE;
 const DELETE = queries.DELETE;
 const tools = require('../tools')
 module.exports = {
-    Register :function  (lastname, firstname, username, email, password) {
-        conn.query(INSERT.AddUser, [lastname, firstname, username, email, password],(err,res) => {
+    Register :function  (lastname, firstname, username, email, password,picture,omni_id) {
+        conn.query(INSERT.AddUser, [lastname, firstname, username, email, password,picture,omni_id],(err,res) => {
             if(err)
             {
                 throw err;
@@ -16,23 +16,30 @@ module.exports = {
         });
     },
     getUser:   function  (type, value) {
-        return new Promise ( (resolve, reject) =>  {
+        return new Promise ( (resolve, reject) => {
              conn.query(SELECT[type], value,(err,res) => {
                 if(err)
                     reject(err);
                 else
                 {
-                    const data = JSON.parse(JSON.stringify(res));
-                    
-            
-                    //console.log(data)       
-                    resolve(data[0]);
-                     
+                    if (!tools.isEmpty(res)){
+                        const data = JSON.parse(JSON.stringify(res))[0];
+                        let token =  jwt.sign(data, 'MyChouaibKEY');
+                        data.token = token;
+                        resolve(data);
+                    }
+                    else
+                        resolve(null)
                 }
+                   
+                     
+
             });
         })
     },
     update: function (type, value){
+        console.log(type)
+        console.log(value)
         return new Promise ((resolve, reject) => {
             conn.query(UPDATE[type], value,(err,res) => {
                 if(err)
