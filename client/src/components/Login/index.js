@@ -9,8 +9,12 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import MyFlash from '../commun/flash'
-import renderField from '../commun/TextField'
+import MyFlash from '../commun/flash';
+import renderField from '../commun/TextField';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import { MDBIcon } from "mdbreact";
+import GitHubIcon from '@material-ui/icons/GitHub';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 const useStyles = makeStyles(theme => ({
   
@@ -30,13 +34,33 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#3E51B5',
   },
+  img:{
+    width: 50,
+    height: 50,
+  }
 }));
 
 const Login = (props) => {
   const {handleSubmit, status, errors, registredStatus} = props;
   const classes = useStyles();
+  const handleAuth1 = async () => {
+    window.open("http://localhost:5000/auth/facebook",'_parent');
+  }
+  const handleAuth2 = async () => {
+    window.open("http://localhost:5000/auth/github",'_parent');
+  }
+  const handleAuth3 = async () => {
+    window.open("http://localhost:5000/auth/linkedin",'_parent');
+  }
+  const handleAuth4 = async () => {
+    window.open("http://localhost:5000/auth/google",'_parent');
+  }
+  const handleAuth5 = async () => {
+    window.open("http://localhost:5000/auth/42",'_parent');
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -45,7 +69,7 @@ const Login = (props) => {
     {status === "errorField" && <MyFlash variant="error" msg={[errors]}/>}
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
-            <LockRoundedIcon/>
+            <LockRoundedIcon />
           </Avatar>
         <Typography component="h1" variant="h5" color="primary">
           Sign in
@@ -71,7 +95,7 @@ const Login = (props) => {
             />
             </Grid>
             <Grid item xs={12}>
-              <Button  onClick={handleSubmit} className={classes.submit} fullWidth variant="contained" type="submit" color="primary" name="submit" value="ok" >Submit</Button>
+              <Button  onClick={handleSubmit}  fullWidth variant="contained" type="submit" color="primary" name="submit" value="ok" >Submit</Button>
             </Grid>
           </Grid>
         </form>   
@@ -87,6 +111,14 @@ const Login = (props) => {
               </Link>
             </Grid>
           </Grid>
+          <div>
+              <Button onClick={handleAuth1} ><FacebookIcon style={{width: '50', height: '50'}}/></Button>
+              <Button onClick={handleAuth2}><GitHubIcon style={{width: '50', height: '50'}}/></Button>
+              <Button onClick={handleAuth3} ><LinkedInIcon style={{width: '50', height: '50'}}/></Button>
+              <Button onClick={handleAuth4}><img className={classes.img} alt="" src='https://cdn2.iconfinder.com/data/icons/font-awesome/1792/google-512.png'/></Button>
+              <Button onClick={handleAuth5}><img className={classes.img} alt="" src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/42_Logo.svg/1200px-42_Logo.svg.png'/></Button>
+              <MDBIcon fab icon="google" />
+            </div>
       </div>
     </Container>
   );

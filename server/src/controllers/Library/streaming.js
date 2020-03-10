@@ -1,6 +1,6 @@
 var torrentStream = require('torrent-stream')
 const _ = require('lodash');
-let engs = []
+let engs = [];
 const path = require('path')
 const parseRange = require('range-parser')
 let tr = [

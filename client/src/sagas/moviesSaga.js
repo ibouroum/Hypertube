@@ -7,12 +7,13 @@ const getMovies =
     function *getMovies ({filter}) {
         try {
             // const id = yield select((state) => state.user.id);
-            // const token = yield select((state) => state.user.token);
+            const token = yield select((state) => state.user.token);
+        
             const response = yield call(request, {
                 "url": 'http://localhost:5000/getMovies',
                 "data": {filter:  filter},
                 "method": "POST"
-            });
+            },token);
 
             //if(response.data.length > 0){
                 let oldData = yield select ((state) => state.movies.movies)
@@ -39,12 +40,13 @@ const getMovies =
     function *getMovieData ({data}) {
         try {
         
-           
+            const token = yield select((state) => state.user.token);
+        
             const response = yield call(request, {
                 "url": 'http://localhost:5000/getMovieData',
                 "data": data,
                 "method": "POST"
-            });
+            },token);
             let res = response.data;
             if(res){
                 if(res.isData === true)
@@ -63,11 +65,13 @@ const getMovies =
     const getSimilarMovies =
     function *getSimilarMovies ({data}) {
         try {
+            const token = yield select((state) => state.user.token);
+        
             const response = yield call(request, {
                 "url": 'http://localhost:5000/getSimilarMovies',
                 "data": data,
                 "method": "POST"
-            });
+            },token);
            
             if(response.data){
                 

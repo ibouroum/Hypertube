@@ -1,9 +1,8 @@
-
 import React ,{useEffect,useState}from 'react'
 import ViewMovie from '../../components/profileMovie'
 import {getMovieData,getSimilarMovie} from '../../actions/moviesAction';
 import {connect} from "react-redux";
-import { Redirect,useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 const ViewMovieContainer = (props) => {
     let history = useHistory();
     const {getMovieData,getSimilarMovie,movieDetails,similarMovies} = props;

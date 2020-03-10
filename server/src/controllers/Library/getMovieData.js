@@ -27,7 +27,7 @@ getMovieData = async (req, res) => {
        if(temp !== null)
             imdb = temp;
     }
-    console.log(imdb)
+    console.log("imdb : ",imdb)
     let result1 = await cloudscraper.get(`https://tv-v2.api-fetch.website/movie/${imdb}`);
     if(result1)
     {

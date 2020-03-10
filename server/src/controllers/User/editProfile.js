@@ -10,36 +10,13 @@ editProfile = async (req, res) => {
     let result = {
         valid: false,
     };
-    let CheckUsername = await  user.getUser('CheckEditUsername', [info.username, info.id]);
-    let CheckEmail = await  user.getUser('CheckEditEmail', [info.email, info.id]);
-
-    if(CheckUsername)
+    const p = info.hasOwnProperty('password');
+    const confP = info.hasOwnProperty('confirmPassword');
+    if( p && confP)
     {
-        result.username = 'Username already exists';
-    }
-    if(CheckEmail)
-    {
-        result.email = 'Email already exists';
-    }
-
-    if(info.interests.length){
-        const result = await user.checkInterests(info.interests)
-        if(result[0].n !== info.interests.length){
-            v = false;
-            result.interests = 'Invalid selection !';
-        }
-        else
-            v = true;
-    }
-    if(info.interests.length > 5){
-        v = false;
-        result.interests = 'You can not add more than 5 interests !';
-    }
-    const p = info.hasOwnProperty('password'); const confP = info.hasOwnProperty('confirmPassword');
-    if( p || confP)
-    {
-        if((p && confP) && tools.isPassword(info.password, info.confirmPassword))
+        if(tools.isPassword(info.password, info.confirmPassword))
         {
+            console.log('ok')
             let hashPassword = await bcrypt.hash(info.password, 10);
             user.update('UpdatePassword', [hashPassword, info.id]);
             v = true;
@@ -50,8 +27,20 @@ editProfile = async (req, res) => {
             v = false;
         }
     }
+    let CheckUsername = await  user.select('CheckEditUsername', [info.username, info.id]);
+    let CheckEmail = await  user.select('CheckEditEmail', [info.email, info.id]);
+    if(CheckUsername)
+    {
+        result.username = 'Username already exists';
+        console.log('username')
+    }
+    if(CheckEmail)
+    {
+        result.email = 'Email already exists';
+         console.log('username')
+    }
 
-    if(tools.isLastname(info.lastname) && tools.isFirstname(info.firstname) && tools.isUsername(info.username) && tools.isEmail(info.email) && tools.isBirthday(info.birthday) && tools.isGender(info.gender) && tools.isOrient(info.sexOrient) && tools.isBio(info.bio) && tools.isInterest(info.interests) && !CheckUsername && !CheckEmail && v)
+    if(tools.isLastname(info.lastname) && info.langue && tools.isFirstname(info.firstname) && tools.isUsername(info.username) && tools.isEmail(info.email) && !CheckUsername && !CheckEmail)
     {
         const check = await user.getUser('GetUserById',info.id);
         if(check && info.email !== check.email)
@@ -62,26 +51,19 @@ editProfile = async (req, res) => {
             EM.sendEmail(info.email, verifToken);
             result.confirmed = false;
         }
-        user.deleteUserInter(info.id);
-        user.update('UpdateProfile',[info.firstname, info.lastname, info.username, info.email, info.gender,info.birthday, tools.age(info.birthday),  info.sexOrient, info.bio, info.id]);
-        info.interests.forEach( element => {
-            user.getInterId(element)
-            .then(re => {
-                if(re){
-                    user.insertUserInter(info.id, re[0].interest_id);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        });
+        console.log(info);
+        
+        user.update('UpdateProfile',[info.firstname, info.lastname, info.username, info.email, info.langue, info.id]);
+       
         const uu = await user.getUser('GetUserById',info.id);
         if(uu){
             delete uu.verif_token;
             delete uu.password;
         }
         result.valid = true;
+        console.log({result, uu});
         res.send({result, uu});
+
     }
     else{
         result.valid = false;
@@ -90,6 +72,7 @@ editProfile = async (req, res) => {
             if(key !== 'valid')
                 err.push(result[key]);
         }
+        console.log({result, err});
         res.send({result, err});
     }
 };

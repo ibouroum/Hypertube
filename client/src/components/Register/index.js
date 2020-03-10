@@ -1,4 +1,4 @@
-import React  from 'react';
+import React ,{useState} from 'react';
 import { Field} from 'redux-form';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,9 +12,10 @@ import Container from '@material-ui/core/Container';
 import renderField from '../commun/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import MyFlash from '../commun/flash';
+import { Message} from "semantic-ui-react";
+
 
 const useStyles = makeStyles(theme => ({
-  
   paper: {
     display: 'flex',
     flexDirection: 'column',
@@ -30,15 +31,46 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#3E51B5',
+  },
+  input: {
+    display: 'none',
+  },
+  add : {
+    display: 'none',
+  },
+  image: {
+    width: '200px',
+    height: '200px',
   },
 }));
 
 
 const Register = (props) => {
-  const {handleSubmit, status, err} = props;
+  const [imgUrl, setimgUrl] = useState(null);
+  const {handleSubmit, status, err, fileChangedHandler} = props;
   const classes = useStyles();
-  
+  const renderPicture = ({input,meta:{ touched, error }}) =>{
+    return (
+      <div>
+        <input accept="image/*"  style={{display: 'none'}} id="icon-button-file" type="file"  onChange={event => {
+          let file = event.target.files[0];
+          let reader = new FileReader();
+          reader.onloadend = () => {
+            setimgUrl(reader.result)
+            }
+          reader.readAsDataURL(file)
+          fileChangedHandler(event,input)}}/>
+        {imgUrl && <img style={{ width: "250px", height: "250px", }} src={imgUrl} alt=""/>}
+        <label htmlFor="icon-button-file">
+          <Button color="primary" aria-label="upload picture" component="span">
+            Add Picture
+          </Button>
+        </label>
+          {error && touched && <Message negative content={error} />}
+        </div>
+    )
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -51,7 +83,12 @@ const Register = (props) => {
         <Typography component="h1" variant="h5" color="primary">
           Sign up
         </Typography>
+       
         <form  className={classes.form}>
+        <Field 
+          name="picture"
+          component={renderPicture}
+        />
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
             <Field
@@ -111,7 +148,7 @@ const Register = (props) => {
             </Grid>
             <Grid item xs={12}>
              
-              <Button  onClick={handleSubmit} className={classes.submit} fullWidth variant="contained" type="submit" color="primary" name="submit" value="ok" >Submit</Button>
+              <Button  onClick={handleSubmit}  fullWidth variant="contained" type="submit" color="primary" name="submit" value="ok" >Submit</Button>
             </Grid>
           </Grid>
         </form>  

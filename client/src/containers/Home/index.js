@@ -36,7 +36,10 @@ const HomeContainer = (props) => {
     }
     const handleMovie = (data) => {
         document.documentElement.scrollTop = 0;
-        history.push(`/view/${data.imdb_id}`);
+        if(data.imdb_id)
+            history.push(`/view/${data.imdb_id}`);
+        else
+            history.push(`/view/${data.imdb_code}`);
     }
     const handleChangeSearch = (e) => {
         setFilter({

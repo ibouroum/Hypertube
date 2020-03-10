@@ -8,8 +8,6 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import Tooltip from '@material-ui/core/Tooltip';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import Button from '@material-ui/core/Button';
@@ -19,6 +17,7 @@ import { Redirect } from "react-router-dom";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { CircularProgress } from '@material-ui/core';
+
 const useStyles = makeStyles(theme => ({
   gridList: {
     flexWrap: 'nowrap',
@@ -50,124 +49,124 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     left: '25px',
   },
-  loading : {
+  loading: {
     position: 'fixed',
     top: '50%',
-}
+  }
 }));
+
 const ViewMovie = (props) => {
-  const { movieDetails, hash, handleWatch, isOpen, handleClose, similarMovies ,handleMovie} = props;
+  const { movieDetails, hash, handleWatch, isOpen, handleClose, similarMovies, handleMovie } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const quality = movieDetails.torrents;
+  const classes = useStyles();
+
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClosee = () => {
     setAnchorEl(null);
   };
-  const quality = movieDetails.torrents;
-  const classes = useStyles();
   return (
     <>
-    {movieDetails !== 'loading' && movieDetails !== 'error' && 
-    <div className="root">
-      <Grid container spacing={2}>
-        <Grid item container justify="center" xs={12} sm={4} >
-          <img src={movieDetails.Poster} className="image" />
-          {isOpen && <Modal isOpen={isOpen} handleClose={handleClose}>
-            <video controls width="500px" height="500px">
-              <source src={"http://localhost:5000/streaming/" + hash} type="video/mp4"></source>
-            </video>
-          </Modal>}
-          {movieDetails.trailer && <Button href={movieDetails.trailer} target="_blank" className={classes.button1} variant="contained" color="primary" startIcon={<YouTubeIcon />}>Trailer</Button>}
-          {movieDetails.torrents && <Button className={classes.button} variant="contained" color="primary" startIcon={<PlayCircleFilledIcon />} onClick={handleClick}>Watch</Button>}
-          <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClosee}>
+      {movieDetails !== 'loading' && movieDetails !== 'error' &&
+        <div className="root">
+          <Grid container spacing={2}>
+            <Grid item container justify="center" xs={12} sm={4} >
+              <img src={movieDetails.Poster} className="image" alt=""/>
+              {isOpen && <Modal isOpen={isOpen} handleClose={handleClose}>
+                <video controls width="500px" height="500px">
+                  <source src={"http://localhost:5000/streaming/" + hash} type="video/mp4"></source>
+                </video>
+              </Modal>}
+              {movieDetails.trailer && <Button href={movieDetails.trailer} target="_blank" className={classes.button1} variant="contained" color="primary" startIcon={<YouTubeIcon />}>Trailer</Button>}
+              {movieDetails.torrents && <Button className={classes.button} variant="contained" color="primary" startIcon={<PlayCircleFilledIcon />} onClick={handleClick}>Watch</Button>}
+              <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClosee}>
 
-            {quality && Object.keys(quality).map((tile, index) => (
-              <MenuItem key={index} onClick={handleClosee} onClick={() => handleWatch(tile)}>{tile}</MenuItem>
-            ))}
+                {quality && Object.keys(quality).map((tile, index) => (
+                  <MenuItem key={index}  onClick={() => {handleWatch(tile)}}>{tile}</MenuItem>
+                ))}
 
-          </Menu>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <List>
-            <Typography color="textSecondary" variant="h2" align="center">{movieDetails.Title}</Typography>
-            <Divider />
-            <ListItem  >
-              <Typography color="textSecondary" variant="h4" >Description </Typography>
-            </ListItem>
-            <ListItem >
-              <Typography variant="h6">{movieDetails.Plot}</Typography>
-            </ListItem>
-            <Divider light />
-            <ListItem  >
-              <Typography color="textSecondary" variant="h4" >Genres </Typography>
-            </ListItem>
-            <ListItem >
-              <Typography variant="h6">{movieDetails.Genre}</Typography>
-            </ListItem>
-            <Divider light />
-            <ListItem  >
-              <Typography color="textSecondary" variant="h4" >Year </Typography>
-            </ListItem>
-            <ListItem >
-              <Typography variant="h5"  >{movieDetails.Year}</Typography>
-            </ListItem>
-            <Divider light />
-            <ListItem  >
-              <Typography color="textSecondary" variant="h4" >Country </Typography>
-            </ListItem>
-            <Divider light />
-            <ListItem  >
-              <Typography variant="h5" >{movieDetails.Country} </Typography>
-            </ListItem>
-            <ListItem  >
-              <Typography color="textSecondary" variant="h4" >Duration </Typography>
-            </ListItem>
-            <Divider light />
-            <ListItem  >
-              <Typography variant="h5" >{movieDetails.Runtime} </Typography>
-            </ListItem>
-            <ListItem  >
-              <Typography color="textSecondary" variant="h4" >Actors</Typography>
-            </ListItem>
-            <Divider light />
-            <ListItem  >
-              <Typography variant="h5" >{movieDetails.Actors} </Typography>
-            </ListItem>
+              </Menu>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <List>
+                <Typography color="textSecondary" variant="h2" align="center">{movieDetails.Title}</Typography>
+                <Divider />
+                <ListItem  >
+                  <Typography color="textSecondary" variant="h4" >Description </Typography>
+                </ListItem>
+                <ListItem >
+                  <Typography variant="h6">{movieDetails.Plot}</Typography>
+                </ListItem>
+                <Divider light />
+                <ListItem  >
+                  <Typography color="textSecondary" variant="h4" >Genres </Typography>
+                </ListItem>
+                <ListItem >
+                  <Typography variant="h6">{movieDetails.Genre}</Typography>
+                </ListItem>
+                <Divider light />
+                <ListItem  >
+                  <Typography color="textSecondary" variant="h4" >Year </Typography>
+                </ListItem>
+                <ListItem >
+                  <Typography variant="h5"  >{movieDetails.Year}</Typography>
+                </ListItem>
+                <Divider light />
+                <ListItem  >
+                  <Typography color="textSecondary" variant="h4" >Country </Typography>
+                </ListItem>
+                <Divider light />
+                <ListItem  >
+                  <Typography variant="h5" >{movieDetails.Country} </Typography>
+                </ListItem>
+                <ListItem  >
+                  <Typography color="textSecondary" variant="h4" >Duration </Typography>
+                </ListItem>
+                <Divider light />
+                <ListItem  >
+                  <Typography variant="h5" >{movieDetails.Runtime} </Typography>
+                </ListItem>
+                <ListItem  >
+                  <Typography color="textSecondary" variant="h4" >Actors</Typography>
+                </ListItem>
+                <Divider light />
+                <ListItem  >
+                  <Typography variant="h5" >{movieDetails.Actors} </Typography>
+                </ListItem>
 
-          </List>
-        </Grid>
-        <Grid item xs={12}>
-          <Comment />
-        </Grid>
-        <Grid item xs={12}>
-          {similarMovies && <Typography color="textSecondary" variant="h4" >Similaires </Typography>}
-          <GridList className={classes.gridList} cols={6}>
-            {similarMovies && similarMovies.map((tile, index) => (
-              <div className="container">
-                <GridListTile key={index}>
-                  <img src={`http://image.tmdb.org/t/p/w185/${tile.poster_path}`} alt="s" />
-                  <button onClick={(e) => handleMovie(tile.id)}>
-                  <div className="overlay">
-                    <div className="text">
-                    
-                     <Typography variant="h3">{tile.title}</Typography>
+              </List>
+            </Grid>
+            <Grid item xs={12}>
+              <Comment />
+            </Grid>
+            <Grid item xs={12}>
+              {similarMovies && <Typography color="textSecondary" variant="h4" >Similaires</Typography>}
+              <GridList className={classes.gridList} cols={6}>
+                  {similarMovies && similarMovies.map((tile, index) => (
+                    <div className="container" key={Math.random() + index}>
+                      <GridListTile>
+                        <img src={`http://image.tmdb.org/t/p/w185/${tile.poster_path}`} alt="s" />
+                        <button onClick={(e) => handleMovie(tile.id)}>
+                          <div className="overlay">
+                            <div className="text">
+
+                              <Typography variant="h3">{tile.title}</Typography>
+                            </div>
+                          </div>
+                        </button>
+                      </GridListTile>
                     </div>
-                  </div>
-                  </button>
-                </GridListTile>
-              </div>
+                  ))}
+              </GridList>
+            </Grid>
+          </Grid>
+        </div>
+      }
 
-            ))}
-          </GridList>
-        </Grid>
-      </Grid>
-    </div>
-    }
-    
-    {movieDetails === 'loading' && <Grid className={classes.loading} container justify="center"><CircularProgress fontSize="large" color="primary"/></Grid>}
-    {movieDetails === 'error' &&  Redirect(`http://localhost:3000/`)  }
+      {movieDetails === 'loading' && <Grid className={classes.loading} container justify="center"><CircularProgress fontSize="large" color="primary" /></Grid>}
+      {movieDetails === 'error' && Redirect(`http://localhost:3000/`)}
     </>
   )
 }

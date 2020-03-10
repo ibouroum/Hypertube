@@ -23,6 +23,8 @@ const isInterest = require("./user/isInterest")
 const isLatitude = require("./user/isLatitude")
 const isLongitude = require("./user/isLongitude")
 
+const generate = require("./user/PasswordGenerator")
+const download = require("./image/downloadImage")
 
 const isSort = require("./movieFilter/isSort")
 const isCategory = require("./movieFilter/isCategory")
@@ -34,5 +36,6 @@ module.exports = {
     isAlpha, isAlphaNumeric, isNumeric, isFloat, isUsername,
     isEmail, isBirthday, isFirstname, isLastname, isPassword,
     isProfileComplete, isGender, isOrient, isBio, isInterest, isLatitude, isLongitude, age,
-    isSort, isCategory, isPage, isTitle
+    isSort, isCategory, isPage, isTitle,
+    generate, download,
 };
