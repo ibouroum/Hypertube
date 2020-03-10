@@ -30,19 +30,6 @@ router.get('/auth/google/redirect',
     res.redirect(`http://localhost:3000/omniAuth/${req.user.token}`);
   });
   
-/* Facebook Router*/
-router.get('/auth/facebook',
-  passport.authenticate('facebook',{
-    failureRedirect: 'http://localhost:3000/login',
-    scope:['email']
-}));
-
-router.get('/auth/facebook/redirect', 
-  passport.authenticate('facebook', { failureRedirect: 'http://localhost:3000/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect(`http://localhost:3000/omniAuth/${req.user.token}`);
-  });
 
 /* Linkedin Router*/
 
@@ -71,5 +58,17 @@ router.get('/auth/github',
     // Successful authentication, redirect home.
     res.redirect(`http://localhost:3000/omniAuth/${req.user.token}`);
   });
+
+  /* SPOTIFY Routers*/
+router.get('/auth/spotify',
+passport.authenticate('spotify'));
+
+router.get('/auth/spotify/redirect', 
+passport.authenticate('spotify', { failureRedirect: 'http://localhost:3000/login' }),
+function(req, res) {
+  // Successful authentication, redirect home.
+  res.redirect(`http://localhost:3000/omniAuth/${req.user.token}`);
+});
+
 
 module.exports = router;

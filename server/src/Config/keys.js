@@ -7,10 +7,6 @@
         clientID: "1046195082444-nr6hm0sqthj24oen28v1si5arrabjgn3.apps.googleusercontent.com",
         clientSecret: "THbHT4ME5ATJM4tETbrZ_BWq"
     };
-    const FACEBOOK = {
-        clientID: "2606331602982999",
-        clientSecret: "5a8c6e725815d20aed91463f19c5878f"
-    };
     const LINKEDIN = {
         clientID: "778li4tq53u8ac",
         clientSecret:  "bEiab98wbcZhjuV2"
@@ -19,11 +15,15 @@
         clientID: "5806a79730ee93427b05",
         clientSecret:  "f31a7d54d0dd336cc4919f4d5acdacf5ec652af9"
     }
+    const SPOTIFY = {
+        clientID:"5f7124828bb3404382bc2473cc5865ff",
+        clientSecret:"0c5a870e19514cb9b7b34032be1101dc"
+    }
 
 module.exports = {
     FORTYTWO,
     GOOGLE,
-    FACEBOOK,
     LINKEDIN,
-    GITHUB
+    GITHUB,
+    SPOTIFY
 };

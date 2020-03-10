@@ -45,9 +45,6 @@ const useStyles = makeStyles(theme => ({
 const Login = (props) => {
   const {handleSubmit, status, errors, registredStatus} = props;
   const classes = useStyles();
-  const handleAuth1 = async () => {
-    window.open("http://localhost:5000/auth/facebook",'_parent');
-  }
   const handleAuth2 = async () => {
     window.open("http://localhost:5000/auth/github",'_parent');
   }
@@ -59,6 +56,9 @@ const Login = (props) => {
   }
   const handleAuth5 = async () => {
     window.open("http://localhost:5000/auth/42",'_parent');
+  }
+  const handleAuth1 = async () => {
+    window.open("http://localhost:5000/auth/spotify",'_parent');
   }
 
   return (
@@ -112,12 +112,13 @@ const Login = (props) => {
             </Grid>
           </Grid>
           <div>
-              <Button onClick={handleAuth1} ><FacebookIcon style={{width: '50', height: '50'}}/></Button>
+             
               <Button onClick={handleAuth2}><GitHubIcon style={{width: '50', height: '50'}}/></Button>
               <Button onClick={handleAuth3} ><LinkedInIcon style={{width: '50', height: '50'}}/></Button>
               <Button onClick={handleAuth4}><img className={classes.img} alt="" src='https://cdn2.iconfinder.com/data/icons/font-awesome/1792/google-512.png'/></Button>
               <Button onClick={handleAuth5}><img className={classes.img} alt="" src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/42_Logo.svg/1200px-42_Logo.svg.png'/></Button>
               <MDBIcon fab icon="google" />
+              <Button onClick={handleAuth1}><img className={classes.img} alt="" src='https://image.flaticon.com/icons/png/512/49/49097.png'/></Button>
             </div>
       </div>
     </Container>
