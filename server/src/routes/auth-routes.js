@@ -33,7 +33,7 @@ router.get('/auth/google/redirect',
 /* Facebook Router*/
 router.get('/auth/facebook',
   passport.authenticate('facebook',{
-    failureRedirect: '/login',
+    failureRedirect: 'http://localhost:3000/login',
     scope:['email']
 }));
 
