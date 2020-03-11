@@ -124,7 +124,8 @@ const Profile = (props) => {
                         <FormLabel component="legend">Langue</FormLabel>
                         <Field component={RadioGroup} name="langue" required={true} options={[
                             { title: 'English', value: 'en' },
-                            { title: 'French', value: 'fr' }
+                            { title: 'French', value: 'fr' },
+                            { title: 'Arab', value: 'ar' }
                         ]}
                         />
                     </Grid>

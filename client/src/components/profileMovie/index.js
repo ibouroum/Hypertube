@@ -54,10 +54,32 @@ const useStyles = makeStyles(theme => ({
     top: '50%',
   }
 }));
-
+const sub = (subtitles) => {
+  let subt = {
+    ar : null,
+    fr : null,
+    en : null
+  };
+  if(subtitles)
+  {
+    for(var i = 0;i < subtitles.length;i++)
+    {
+    if(subtitles[i].langShort == 'ar')
+         subt.ar = "data:text/vtt;base64,"+subtitles[i].fileName
+      if(subtitles[i].langShort == 'fr')
+         subt.fr = "data:text/vtt;base64,"+subtitles[i].fileName  
+      if(subtitles[i].langShort == 'en')
+         subt.en = "data:text/vtt;base64,"+subtitles[i].fileName   
+    }
+  }
+  
+  return subt;
+}
 const ViewMovie = (props) => {
-  const { movieDetails, hash, handleWatch, isOpen, handleClose, similarMovies, handleMovie } = props;
+  const { user,movieDetails, hash, handleWatch, isOpen, handleClose, similarMovies, handleMovie } = props;
+  const subtitles = sub(movieDetails.subtitles);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  console.log(movieDetails)
   const quality = movieDetails.torrents;
   const classes = useStyles();
 
@@ -75,8 +97,11 @@ const ViewMovie = (props) => {
             <Grid item container justify="center" xs={12} sm={4} >
               <img src={movieDetails.Poster} className="image" alt=""/>
               {isOpen && <Modal isOpen={isOpen} handleClose={handleClose}>
-                <video controls width="500px" height="500px">
-                  <source src={"http://localhost:5000/streaming/" + hash} type="video/mp4"></source>
+                <video controls width="100%" height="500px">
+                  <source src={"http://localhost:5000/streaming/" + hash} type="video/mp4"/>
+                  {subtitles.ar && <track  kind="subtitles" src={subtitles.ar} srclang="ar" default={user.langue === "ar" ? true : false}/>}
+                   {subtitles.fr &&<track  kind="subtitles" src={subtitles.fr} srclang="fr" default={user.langue === "fr" ? true : false} />}
+                   {subtitles.en &&<track  kind="subtitles" src={subtitles.en} srclang="en"  default={user.langue === "en" ? true : false}/>}
                 </video>
               </Modal>}
               {movieDetails.trailer && <Button href={movieDetails.trailer} target="_blank" className={classes.button1} variant="contained" color="primary" startIcon={<YouTubeIcon />}>Trailer</Button>}

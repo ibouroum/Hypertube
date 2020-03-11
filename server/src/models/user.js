@@ -38,8 +38,7 @@ module.exports = {
         })
     },
     update: function (type, value){
-        console.log(type)
-        console.log(value)
+    
         return new Promise ((resolve, reject) => {
             conn.query(UPDATE[type], value,(err,res) => {
                 if(err)
@@ -60,6 +59,7 @@ module.exports = {
         })
     },
     select: function (type, value){
+    
         return new Promise ((resolve, reject) => {
             conn.query(SELECT[type], value,(err,res) => {
                 if(err)
@@ -69,12 +69,13 @@ module.exports = {
                     if(tools.isEmpty(res))
                         resolve(false)
                     else
-                    resolve(JSON.parse(JSON.stringify(res[0])));
+                    resolve(JSON.parse(JSON.stringify(res)));
                 }
             });
         })
     },
     delete: function (type, value){
+
         return new Promise ((resolve, reject) => {
             conn.query(DELETE[type], value,(err,res) => {
                 if(err)

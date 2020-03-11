@@ -8,6 +8,8 @@ import userReducer from './userReducer';
 import moviesReducer from './moviesReducer';
 import movieDetails from './movieDetails';
 import similarMovies from './similarMovies'
+import watchList from './watchList'
+
 const combinedReducer = (history)=> combineReducers({
     "router" : connectRouter(history),
     "register" : registerReducer,
@@ -17,6 +19,7 @@ const combinedReducer = (history)=> combineReducers({
     "movies": moviesReducer,
     "movieDetails" : movieDetails,
     "similarMovies" : similarMovies,
+    "watchList" : watchList,
     form
 });
 export default combinedReducer;

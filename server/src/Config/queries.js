@@ -7,9 +7,13 @@ const queries = {
         GetUserByToken:     "SELECT * FROM users WHERE verif_token = ?",
         CheckEditUsername:  "SELECT username from users where username = ? AND id != ?",
         CheckEditEmail:     "SELECT email from users where email = ? AND id != ?",
+        getMovies : "SELECT * from movies WHERE user_id = ? AND imdb = ?",
+        getSeenMovies : "SELECT * from movies WHERE user_id = ? ",
+        getAllSeenMovies : "SELECT * from movies",
     },
     INSERT : {
         AddUser:            'INSERT INTO users (lastname, firstname, username, email, password,image,omni_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        InsertMovies : "INSERT INTO  movies (user_id ,imdb, hash , title, year , rating , poster,date) VALUES (?,?,?,?,?,?,?,NOW())",
     },
     UPDATE : {
         Update:             'UPDATE users SET name = ?, email = ?, sex = ? WHERE id = ?',
@@ -21,10 +25,11 @@ const queries = {
         UpdateProfile:      "UPDATE users SET firstname = ?, lastname = ?, username = ?, email = ?, langue = ? WHERE id = ?",
         UpdateImage:      "UPDATE users SET image = ? WHERE id = ?",
         UpdatePassword:     "UPDATE users SET password = ? WHERE id = ?",
+        UpdateMovies : "UPDATE movies SET user_id = ? ,imdb = ? , hash = ?, title = ? , year = ?, rating = ?, poster = ? , date = NOW() WHERE user_id = ? AND imdb = ?"
        
     },
     DELETE : {
-       
+        deleteMovie : "DELETE FROM movies WHERE imdb = ?"
     },
 }
 

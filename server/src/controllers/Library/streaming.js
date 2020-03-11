@@ -39,6 +39,7 @@ const convertFile = file => {
     })
    
     return new Promise((resolve, reject) =>{
+      console.log(engs)
       let b = _.find(engs, {hash: hash});
       if (typeof(b) === "object")
       {
@@ -84,7 +85,6 @@ const convertFile = file => {
     const hash = req.params.hash
     res.setHeader('Accept-Ranges', 'bytes');
     getTorrentFile(hash)
-   
     .then((file)=>{
       res.setHeader('Content-Length', file.length);
       res.setHeader('Content-Type', `video/${file.ext}`);

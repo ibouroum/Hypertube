@@ -10,7 +10,7 @@ import ResetPasswordContainer from '../containers/resetPassword';
 import HomeContainer from '../containers/Home';
 import omniAuth from '../containers/Login/omniAuth';
 import ProfileMovie from '../containers/profileMovie'
-
+import WatchList from '../containers/watchList'
 const Routes = (props) => {
     const { user } = props;
     return (
@@ -23,6 +23,7 @@ const Routes = (props) => {
                 <Route exact path="/login" component={user === null ? loginContainer : HomeContainer} />
                 <Route exact path="/view/:imdb" component={user === null ? loginContainer : ProfileMovie} />
                 <Route path="/omniAuth/:token" component={omniAuth} />
+                <Route exact path="/watchList" component={user !== null ? WatchList : loginContainer} />
                 <Route exact path="/" component={user !== null ? HomeContainer : loginContainer} />
                 <Route path="" component={NotFoundPage} />
             </Switch>

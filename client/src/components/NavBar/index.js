@@ -83,6 +83,7 @@ function NavBar(props) {
   const loggedInMenu = [
     { "text": "Home", "path": "/", icon: <AppsIcon color="inherit" /> },
     { "text": "Profile", "path": "/profile", icon: <PersonIcon color="inherit" /> },
+    { "text": "Watch List", "path": "/watchList", icon: <PersonIcon color="inherit" /> },
   ];
   const loggedOutMenu = [
     { "text": "Se connecter", "path": "/login", icon: <LockOpenIcon color="inherit" /> },

@@ -8,6 +8,8 @@ const getMovies = require('../controllers/Library/getMovies');
 const getMovieData = require('../controllers/Library/getMovieData');
 const streaming = require('../controllers/Library/streaming');
 const getSimilarMovies = require('../controllers/Library/getSimilarMovies')
+const updateSeen = require('../controllers/Library/updateSeen')
+const getSeenMovies = require('../controllers/Library/getSeenMovies')
 router.get('/streaming/:hash',streaming);
 router.use(async function (req,res,next) {
     const token = req.headers.authorization;
@@ -29,5 +31,6 @@ router.post('/getMovies', getMovies);
 router.post('/getMovieData',getMovieData);
 
 router.post('/getSimilarMovies',getSimilarMovies);
-
+router.post('/updateSeen',updateSeen)
+router.post('/getSeenMovies',getSeenMovies)
 module.exports = router;

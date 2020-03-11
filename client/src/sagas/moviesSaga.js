@@ -1,7 +1,7 @@
 import {takeLatest, put,call, select} from "redux-saga/effects";
 //import {push} from "react-router-redux";
 //import {resetState} from '../actions/resetStateAction';
-import {GetMoviesError, GetMoviesSuccess,getMovieDataSuccess,getMovieDataError,getSimilarMoviesError,getSimilarMoviesSuccess} from '../actions/moviesAction';
+import {GetMoviesError, GetMoviesSuccess,getMovieDataSuccess,getMovieDataError,getSimilarMoviesError,getSimilarMoviesSuccess,getSeenMoviesSuccess,getSeenMoviesError} from '../actions/moviesAction';
 import {request} from './helper';
 const getMovies =
     function *getMovies ({filter}) {
@@ -85,11 +85,54 @@ const getMovies =
             }
         }
     };
+    const updateSeen =
+    function *updateSeen ({data}) {
+        try {
+            const token = yield select((state) => state.user.token);
+            const response = yield call(request, {
+                "url": 'http://localhost:5000/updateSeen',
+                "data": data,
+                "method": "POST"
+            },token);
+           
+            if(response.data){
+                
+            }
+            
+        }catch (error) {
+            if (error.response) {
+               
+            }
+        }
+    };
+    const getSeenMovies =
+    function *getSeenMovies (data) {
+        try {
+            const token = yield select((state) => state.user.token);
+            const response = yield call(request, {
+                "url": 'http://localhost:5000/getSeenMovies',
+                "data": data,
+                "method": "POST"
+            },token);
+            if(response.data){
+                yield put(getSeenMoviesSuccess(response.data))
+            }
+            else
+            yield put(getSeenMoviesError('error'))
+            
+        }catch (error) {
+            if (error.response) {
+                yield put(getSeenMoviesError('error'))
+            }
+        }
+    };
 
 export default function *() {
     yield takeLatest("GET_MOVIES", getMovies);
     yield takeLatest("GET_MOVIE_DATA", getMovieData);
     yield takeLatest("GET_SIMILAR_MOVIES", getSimilarMovies);
+    yield takeLatest("UPDATE_SEEN", updateSeen);
+    yield takeLatest("GET_SEEN_MOVIES", getSeenMovies);
 
 
 }

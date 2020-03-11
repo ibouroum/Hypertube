@@ -1,11 +1,11 @@
 import React ,{useEffect,useState}from 'react'
 import ViewMovie from '../../components/profileMovie'
-import {getMovieData,getSimilarMovie} from '../../actions/moviesAction';
+import {getMovieData,getSimilarMovie,updateSeen} from '../../actions/moviesAction';
 import {connect} from "react-redux";
 import { useHistory } from "react-router-dom";
 const ViewMovieContainer = (props) => {
     let history = useHistory();
-    const {getMovieData,getSimilarMovie,movieDetails,similarMovies} = props;
+    const {getMovieData,getSimilarMovie,movieDetails,similarMovies,user,updateSeen} = props;
     const imdb = props.match.params.imdb;
     const [isOpen,setIsOpen] = useState(false)
     const [hash,setHash] = useState(null)
@@ -14,8 +14,19 @@ const ViewMovieContainer = (props) => {
         getSimilarMovie({type : 'imdb',code: imdb});
     }, []);
     const handleWatch= (quality) => {
-        
-        setHash(getHash(movieDetails.torrents,quality))
+        let has = getHash(movieDetails.torrents,quality);
+        const data ={
+            imdb : movieDetails.imdbID,
+            hash : has,
+            user_id : user.id,
+            title : movieDetails.Title,
+            year : movieDetails.Year,
+            rating : movieDetails.imdbRating,
+            poster : movieDetails.Poster
+        }
+        updateSeen(data)
+        console.log(data)
+        setHash(has)
         setIsOpen(true);
     };
     const handleClose = () => {
@@ -36,16 +47,18 @@ const ViewMovieContainer = (props) => {
    }
     return (
         <div>
-           <ViewMovie movieDetails={movieDetails} hash={hash} isOpen={isOpen} handleClose={handleClose}
+           <ViewMovie user={user} movieDetails={movieDetails} hash={hash} isOpen={isOpen} handleClose={handleClose}
                 handleWatch={handleWatch} similarMovies={similarMovies} handleMovie={handleMovie}/> 
         </div>
     )
 }
 const mapDispatchToProps = {
     "getMovieData": getMovieData,
-    "getSimilarMovie" : getSimilarMovie
+    "getSimilarMovie" : getSimilarMovie,
+    "updateSeen" : updateSeen
 };
 const mapStateToProps = (state) =>({
+    "user" : state.user,
     "movieDetails" : state.movieDetails,
     "similarMovies" : state.similarMovies.results
 });

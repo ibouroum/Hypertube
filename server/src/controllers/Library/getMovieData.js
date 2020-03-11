@@ -1,5 +1,6 @@
 const  unirest = require('unirest')
 const yifysubtitles = require('yifysubtitles');
+const fs = require('fs')
 let cloudscraper = require('cloudscraper');
 getMovieDataById =  (id) => {
     return new Promise((resolve, reject)=>{
@@ -27,16 +28,22 @@ getMovieData = async (req, res) => {
        if(temp !== null)
             imdb = temp;
     }
-    console.log("imdb : ",imdb)
     let result1 = await cloudscraper.get(`https://tv-v2.api-fetch.website/movie/${imdb}`);
+   
     if(result1)
     {
         let x = JSON.parse(result1);
         info.torrents = x.torrents;
         info.trailer = x.trailer;
     }
-     const subtitles = await yifysubtitles(imdb, {path: './',langs: ['en', 'fr', 'ar']});
-    
+     const subtitles = await yifysubtitles(imdb, {path: './subtitles',langs: ['en', 'fr', 'ar']});
+     for(var i = 0;i< subtitles.length;i++)
+      {
+        const t =  fs.readFileSync('./subtitles/'+subtitles[i].fileName, 'utf8')
+        let buff = new Buffer(t);
+        let base64data = buff.toString('base64');
+        subtitles[i].fileName = base64data
+      }
     const url =  unirest('GET','https://movie-database-imdb-alternative.p.rapidapi.com/')
     url.query({
         "i": imdb,
@@ -52,6 +59,7 @@ getMovieData = async (req, res) => {
         {
             Data.torrents = info.torrents.en;
             Data.trailer = info.trailer;
+            Data.subtitles = subtitles;
             res.send({isData :true, data : Data});
         }
         else
