@@ -133,7 +133,7 @@ function NavBar(props) {
 
             <Typography variant="h6"  color="primary" className={classes.title}>
               <Link to="/" style={{textDecoration: 'none', color:'inherit'}}>
-                {t('login_screen.username')}
+                HYPERTUBE
               </Link>
           </Typography>
           <Button color="primary" onClick={handleChangeLang}>ChangeLang</Button>

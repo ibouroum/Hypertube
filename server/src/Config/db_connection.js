@@ -1,10 +1,10 @@
 
 const mysql = require('mysql');
 
-  const DB_HOST = process.env.DB_HOST || 'localhost';
-  const DB_NAME = process.env.DB_NAME || 'root';
-  const DB_PASS = process.env.DB_PASS || 5000;
-  const DB = process.env.db || HyperTube;
+  const DB_HOST = process.env.DB_HOST;
+  const DB_NAME = process.env.DB_NAME;
+  const DB_PASS = process.env.DB_PASS;
+  const DB = process.env.DB;
  const conn = mysql.createConnection({
       host : DB_HOST,
       user : DB_NAME,

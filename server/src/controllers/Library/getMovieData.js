@@ -1,43 +1,42 @@
-const  unirest = require('unirest')
+const unirest = require('unirest')
 const yifysubtitles = require('yifysubtitles');
 let cloudscraper = require('cloudscraper');
-getMovieDataById =  (id) => {
-    return new Promise((resolve, reject)=>{
+
+getMovieDataById = (id) => {
+    return new Promise((resolve, reject) => {
         let imdb = null;
-    var req =  unirest("GET",
-    `https://api.themoviedb.org/3/movie/${id}?api_key=0f87bface5c69fcf394fc387f33049fa&language=en-US`);
-    req.end(function (result) {
-        if (result.error) console.log(result.error)
-        if(result.body.imdb_id)
-            imdb = result.body.imdb_id;
-        resolve( imdb); 
-    });
-})    
+        var req = unirest("GET",
+            `https://api.themoviedb.org/3/movie/${id}?api_key=0f87bface5c69fcf394fc387f33049fa&language=en-US`);
+        req.end(function (result) {
+            if (result.error) console.log(result.error)
+            if (result.body.imdb_id)
+                imdb = result.body.imdb_id;
+            resolve(imdb);
+        });
+    })
 }
 getMovieData = async (req, res) => {
     const data = req.body;
-    let imdb = data.code;
-    const info ={
+    const info = {
         'torrents': "",
-        'trailer' : ""
+        'trailer': ""
     }
-    if(data.type === "id")
-    {
-       let temp = await getMovieDataById(data.code)
-       if(temp !== null)
+    let imdb = data.code;
+   
+    if (data.type === "id") {
+        let temp = await getMovieDataById(data.code)
+        if (temp !== null)
             imdb = temp;
     }
-    console.log("imdb : ",imdb)
     let result1 = await cloudscraper.get(`https://tv-v2.api-fetch.website/movie/${imdb}`);
-    if(result1)
-    {
+    if (result1) {
         let x = JSON.parse(result1);
         info.torrents = x.torrents;
         info.trailer = x.trailer;
     }
-     const subtitles = await yifysubtitles(imdb, {path: './',langs: ['en', 'fr', 'ar']});
-    
-    const url =  unirest('GET','https://movie-database-imdb-alternative.p.rapidapi.com/')
+    const subtitles = await yifysubtitles(imdb, { path: './', langs: ['en', 'fr', 'ar'] });
+
+    const url = unirest('GET', 'https://movie-database-imdb-alternative.p.rapidapi.com/')
     url.query({
         "i": imdb,
         "r": "json"
@@ -48,14 +47,13 @@ getMovieData = async (req, res) => {
     }),
     url.end((response) => {
         let Data = response.body;
-        if(Data)
-        {
+        if (Data) {
             Data.torrents = info.torrents.en;
             Data.trailer = info.trailer;
-            res.send({isData :true, data : Data});
+            res.send({ isData: true, data: Data });
         }
         else
-            res.send({isData :false, data : null});
+            res.send({ isData: false, data: null });
     })
 }
 module.exports = getMovieData;

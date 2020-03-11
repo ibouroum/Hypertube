@@ -16,7 +16,6 @@ editProfile = async (req, res) => {
     {
         if(tools.isPassword(info.password, info.confirmPassword))
         {
-            console.log('ok')
             let hashPassword = await bcrypt.hash(info.password, 10);
             user.update('UpdatePassword', [hashPassword, info.id]);
             v = true;
@@ -32,12 +31,10 @@ editProfile = async (req, res) => {
     if(CheckUsername)
     {
         result.username = 'Username already exists';
-        console.log('username')
     }
     if(CheckEmail)
     {
         result.email = 'Email already exists';
-         console.log('username')
     }
 
     if(tools.isLastname(info.lastname) && info.langue && tools.isFirstname(info.firstname) && tools.isUsername(info.username) && tools.isEmail(info.email) && !CheckUsername && !CheckEmail)
@@ -51,7 +48,6 @@ editProfile = async (req, res) => {
             EM.sendEmail(info.email, verifToken);
             result.confirmed = false;
         }
-        console.log(info);
         
         user.update('UpdateProfile',[info.firstname, info.lastname, info.username, info.email, info.langue, info.id]);
        
@@ -61,7 +57,6 @@ editProfile = async (req, res) => {
             delete uu.password;
         }
         result.valid = true;
-        console.log({result, uu});
         res.send({result, uu});
 
     }
@@ -72,7 +67,6 @@ editProfile = async (req, res) => {
             if(key !== 'valid')
                 err.push(result[key]);
         }
-        console.log({result, err});
         res.send({result, err});
     }
 };

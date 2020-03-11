@@ -7,14 +7,16 @@ const editProfile = require('../controllers/User/editProfile');
 const getMovies = require('../controllers/Library/getMovies');
 const getMovieData = require('../controllers/Library/getMovieData');
 const streaming = require('../controllers/Library/streaming');
-const getSimilarMovies = require('../controllers/Library/getSimilarMovies')
-router.get('/streaming/:hash',streaming);
-router.use(async function (req,res,next) {
+const getSimilarMovies = require('../controllers/Library/getSimilarMovies');
+const getComments = require('../controllers/Library/getComments');
+const addComment = require('../controllers/Library/addComment');
+
+router.get('/streaming/:hash', streaming);
+router.use(async function (req, res, next) {
     const token = req.headers.authorization;
-    if(token !== 'undefined')
-    {
+    if (token !== 'undefined') {
         const isValid = await checkToken(token);
-        if(isValid)
+        if (isValid)
             next();
         else
             console.log('Token is invalid');
@@ -26,8 +28,9 @@ router.use(async function (req,res,next) {
 router.post('/logout', logout);
 router.post('/editProfile', editProfile);
 router.post('/getMovies', getMovies);
-router.post('/getMovieData',getMovieData);
-
-router.post('/getSimilarMovies',getSimilarMovies);
+router.post('/getMovieData', getMovieData);
+router.post('/getSimilarMovies', getSimilarMovies);
+router.post('/getComments', getComments);
+router.post('/addComment', addComment);
 
 module.exports = router;

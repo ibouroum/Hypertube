@@ -51,12 +51,14 @@ const useStyles = makeStyles(theme => ({
   },
   loading: {
     position: 'fixed',
-    top: '50%',
+    top: '10%',
+    width: '100%',
+    height: '30%'
   }
 }));
 
 const ViewMovie = (props) => {
-  const { movieDetails, hash, handleWatch, isOpen, handleClose, similarMovies, handleMovie } = props;
+  const { movieDetails, hash, handleWatch, isOpen, handleClose, similarMovies, handleMovie, comments, handleAddComment, handleChangeComment, handleVp } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const quality = movieDetails.torrents;
   const classes = useStyles();
@@ -73,7 +75,7 @@ const ViewMovie = (props) => {
         <div className="root">
           <Grid container spacing={2}>
             <Grid item container justify="center" xs={12} sm={4} >
-              <img src={movieDetails.Poster} className="image" alt=""/>
+              <img src={movieDetails.Poster} className="image" alt="" />
               {isOpen && <Modal isOpen={isOpen} handleClose={handleClose}>
                 <video controls width="500px" height="500px">
                   <source src={"http://localhost:5000/streaming/" + hash} type="video/mp4"></source>
@@ -84,7 +86,7 @@ const ViewMovie = (props) => {
               <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClosee}>
 
                 {quality && Object.keys(quality).map((tile, index) => (
-                  <MenuItem key={index}  onClick={() => {handleWatch(tile)}}>{tile}</MenuItem>
+                  <MenuItem key={index} onClick={() => { handleWatch(tile) }}>{tile}</MenuItem>
                 ))}
 
               </Menu>
@@ -139,33 +141,33 @@ const ViewMovie = (props) => {
               </List>
             </Grid>
             <Grid item xs={12}>
-              <Comment />
+              <Comment handleVp={handleVp} handleChangeComment={handleChangeComment} handleAddComment={handleAddComment} comments={comments}/>
             </Grid>
             <Grid item xs={12}>
               {similarMovies && <Typography color="textSecondary" variant="h4" >Similaires</Typography>}
               <GridList className={classes.gridList} cols={6}>
-                  {similarMovies && similarMovies.map((tile, index) => (
-                    <div className="container" key={Math.random() + index}>
-                      <GridListTile>
-                        <img src={`http://image.tmdb.org/t/p/w185/${tile.poster_path}`} alt="s" />
-                        <button onClick={(e) => handleMovie(tile.id)}>
-                          <div className="overlay">
-                            <div className="text">
+                {similarMovies && similarMovies.map((tile, index) => (
+                  <div className="container" key={Math.random() + index}>
+                    <GridListTile>
+                      <img src={`http://image.tmdb.org/t/p/w185/${tile.poster_path}`} alt="s" />
+                      <button onClick={(e) => handleMovie(tile.id)}>
+                        <div className="overlay">
+                          <div className="text">
 
-                              <Typography variant="h3">{tile.title}</Typography>
-                            </div>
+                            <Typography variant="h3">{tile.title}</Typography>
                           </div>
-                        </button>
-                      </GridListTile>
-                    </div>
-                  ))}
+                        </div>
+                      </button>
+                    </GridListTile>
+                  </div>
+                ))}
               </GridList>
             </Grid>
           </Grid>
         </div>
       }
 
-      {movieDetails === 'loading' && <Grid className={classes.loading} container justify="center"><CircularProgress fontSize="large" color="primary" /></Grid>}
+      {movieDetails === 'loading' && <Grid className={classes.loading} container justify="center"><img src={`https://media.giphy.com/media/UpDq7PzULQYhlIZKMC/giphy.gif`} alt="s"/></Grid>}
       {movieDetails === 'error' && Redirect(`http://localhost:3000/`)}
     </>
   )

@@ -17,14 +17,14 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import './home.css'
 
 const useStyles = makeStyles(theme => ({
-    upBtn : {
+    upBtn: {
         zIndex: 99,
         position: 'fixed',
         bottom: '7%',
         right: '1%',
     },
     rating: {
-        maxWidth:400
+        maxWidth: 400
     },
     block: {
         display: 'block',
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     none: {
         display: 'none',
     },
-    loading : {
+    loading: {
         position: 'fixed',
         top: '50%',
     }
@@ -40,21 +40,21 @@ const useStyles = makeStyles(theme => ({
 
 export default function Home(props) {
 
-    const {initializeFilter, movies, handleChangeSort, handleChangeCategory, handleChangeSearch, handleSubmitSearch,handleMovie} = props;
+    const { initializeFilter, movies, handleChangeSort, handleChangeCategory, handleChangeSearch, handleSubmitSearch, handleMovie } = props;
     const classes = useStyles();
     const [filter, setFilter] = React.useState(false);
     const [search, setSearch] = React.useState(false);
-    return(
+    return (
         <>
             <Grid className="filterCont" container justify="center" direction="row">
                 <Tooltip title="Search">
-                    <IconButton aria-label="Search" onClick={() => {initializeFilter(); setSearch(!search); filter === true  && setFilter(false)}}>
-                        <SearchSharpIcon className="searchButton" color="primary" fontSize="large"/>
+                    <IconButton aria-label="Search" onClick={() => { initializeFilter(); setSearch(!search); filter === true && setFilter(false) }}>
+                        <SearchSharpIcon className="searchButton" color="primary" fontSize="large" />
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Filter">
-                    <IconButton aria-label="Filter" onClick={() => {initializeFilter(); search && setSearch(!search); setFilter(!filter)}}>
-                        <FilterListSharpIcon className="filterButton" color="primary" fontSize="large"/>
+                    <IconButton aria-label="Filter" onClick={() => { initializeFilter(); search && setSearch(!search); setFilter(!filter) }}>
+                        <FilterListSharpIcon className="filterButton" color="primary" fontSize="large" />
                     </IconButton>
                 </Tooltip>
             </Grid>
@@ -64,15 +64,15 @@ export default function Home(props) {
                         placeholder="Find a movie ..."
                         InputProps={{
                             endAdornment: (
-                            <InputAdornment>
-                                <Button onClick={handleSubmitSearch}>Search</Button>
-                            </InputAdornment>
+                                <InputAdornment>
+                                    <Button onClick={handleSubmitSearch}>Search</Button>
+                                </InputAdornment>
                             )
                         }}
                         onChange={handleChangeSearch}
                     />
                 </Grid>}
-                {filter && <Grid  item xs={12}>
+                {filter && <Grid item xs={12}>
                     <Grid container justify="center" spacing={2}>
                         <Grid className={classes.rating} item xs={12} >
                             <Typography id="range-slider5" gutterBottom align="center">
@@ -82,16 +82,16 @@ export default function Home(props) {
                                 isClearable={false}
                                 onChange={handleChangeCategory}
                                 options={[
-                                    {'value': 'animation', 'label' : 'Animation'},
-                                    { value: 'action', label: 'Action'},
-                                    { value: 'adventure', label: 'Adventure'},
-                                    { value: 'comedy', label: 'Comedy'},
-                                    { value: 'drama', label: 'Drama'},
-                                    { value: 'horror', label: 'Horror'},
-                                    { value: 'music', label: 'Music'},
-                                    { value: 'romance', label: 'Romance'},
-                                    { value: 'sci-Fi', label: 'Sci-Fi'},
-                                    { value: 'thriller', label: 'Thriller'}
+                                    { 'value': 'animation', 'label': 'Animation' },
+                                    { value: 'action', label: 'Action' },
+                                    { value: 'adventure', label: 'Adventure' },
+                                    { value: 'comedy', label: 'Comedy' },
+                                    { value: 'drama', label: 'Drama' },
+                                    { value: 'horror', label: 'Horror' },
+                                    { value: 'music', label: 'Music' },
+                                    { value: 'romance', label: 'Romance' },
+                                    { value: 'sci-Fi', label: 'Sci-Fi' },
+                                    { value: 'thriller', label: 'Thriller' }
                                 ]}
                                 //styles={customStyles}
                                 placeholder="Select a category"
@@ -104,11 +104,11 @@ export default function Home(props) {
                             <Select
                                 isClearable={false}
                                 onChange={handleChangeSort}
-                                options={[  {'label': 'Year', 'value': 'year'},
-                                            {'label': 'Rating', 'value': 'rating'},
-                                            {'label': 'Last added', 'value': 'last_added'},
-                                            {'label': 'Trending', 'value':'trending'}
-                                        ]}
+                                options={[{ 'label': 'Year', 'value': 'year' },
+                                { 'label': 'Rating', 'value': 'rating' },
+                                { 'label': 'Last added', 'value': 'last_added' },
+                                { 'label': 'Trending', 'value': 'trending' }
+                                ]}
                                 //styles={customStyles}
                                 placeholder="Select ..."
                             />
@@ -117,47 +117,47 @@ export default function Home(props) {
                 </Grid>}
             </Grid>
             {movies.status !== 'loading' &&
-            <>
-            <Grid container justify="center">
-                <Fab    className={classes.upBtn}
-                        color="primary"
-                        size="medium"
-                        onClick={() => {window.scrollTo({top: 0, behavior: 'smooth'});}}
-                >
-                    <KeyboardArrowUpIcon />
-                </Fab>
-                {movies.movies && movies.movies.length > 0 && movies.movies.map((element, index) =>  (
-                <React.Fragment key={index}>
-                {((element.medium_cover_image) || (element.images.poster && element.images.poster !== 'N/A' && element.images.poster !== 'images/posterholder.png')) &&
-                <Card className="card">
-                    <div className="container">
-                        <img
-                            className="media"
-                            src={(element.medium_cover_image && 'https://img.'+element.medium_cover_image.split('https://')[1] )|| (element.images.poster)} 
-                            alt={element.title_long || element.title}
-                        />
-                        <button onClick={(e) => handleMovie(element)} >
-                            <div className="overlay">
-                                <div className="text">
-                                    <h1>{element.title_long || element.title + (element.year && ` (${element.year})`)}</h1>
-                                    <Typography component="legend">
-                                        <StarIcon style={{fill: 'yellow'}}/>({
-                                        (element.rating.percentage && (element.rating.percentage * 10 / 100).toFixed(1)) || 
-                                        (element.rating && (element.rating * 1).toFixed(1))}/10)
+                <>
+                    <Grid container justify="center">
+                        <Fab className={classes.upBtn}
+                            color="primary"
+                            size="medium"
+                            onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                        >
+                            <KeyboardArrowUpIcon />
+                        </Fab>
+                        {movies.movies && movies.movies.length > 0 && movies.movies.map((element, index) => (
+                            <React.Fragment key={index}>
+                                {((element.medium_cover_image) || (element.images.poster && element.images.poster !== 'N/A' && element.images.poster !== 'images/posterholder.png')) &&
+                                    <Card className="card">
+                                        <div className="container">
+                                            <img
+                                                className="media"
+                                                src={(element.medium_cover_image && 'https://img.' + element.medium_cover_image.split('https://')[1]) || (element.images.poster)}
+                                                alt={element.title_long || element.title}
+                                            />
+                                            <button onClick={(e) => handleMovie(element)} >
+                                                <div className="overlay">
+                                                    <div className="text">
+                                                        <h1>{element.title_long || element.title + (element.year && ` (${element.year})`)}</h1>
+                                                        <Typography component="legend">
+                                                            <StarIcon style={{ fill: 'yellow' }} />({
+                                                                (element.rating.percentage && (element.rating.percentage * 10 / 100).toFixed(1)) ||
+                                                                (element.rating && (element.rating * 1).toFixed(1))}/10)
                                     </Typography>
-                                </div>
-                            </div>
-                        </button>
-                    </div>
-                </Card>
-                }
-                </React.Fragment>
-                ))}
-                {movies.movies && movies.movies.length === 0 && <p className="noMovies">No movies found</p>}
-            </Grid>
-            </>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </Card>
+                                }
+                            </React.Fragment>
+                        ))}
+                        {movies.movies && movies.movies.length === 0 && <p className="noMovies">No movies found</p>}
+                    </Grid>
+                </>
             }
-            {movies.status === 'loading' && <Grid className={classes.loading} container justify="center"><CircularProgress fontSize="large" color="primary"/></Grid>}
+            {movies.status === 'loading' && <Grid className={classes.loading} container justify="center"><CircularProgress fontSize="large" color="primary" /></Grid>}
         </>
     );
 }
