@@ -73,13 +73,6 @@ const storage = multer.diskStorage({
     }
     if(!tools.isLastname(lastname) || !tools.isFirstname(firstname) || !tools.isUsername(username) || !tools.isEmail(email)  || !tools.isEmpty(GetUserByEmail) || !tools.isEmpty(GetUserByUsername) ||  !tools.isPassword(password, confirmPassword) )
     {
-      console.log("last name:" + !tools.isLastname(lastname));
-      console.log("firstname:" + !tools.isFirstname(firstname));
-      console.log("username:" + !tools.isUsername(username));
-      console.log("ppss:" + !tools.isPassword(password, confirmPassword));
-      console.log("email:" + !tools.isEmail(email));
-
-      
       data.isValid = false;
     }
     else

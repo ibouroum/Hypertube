@@ -28,6 +28,7 @@ const login =
       }
       else
       {
+        yield put(push("/"));
         yield put(loginErrorField(response.data.errorField))
         yield delay(4000);
         yield put(resetState());

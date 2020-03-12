@@ -24,9 +24,10 @@ module.exports = {
                 {
                     if (!tools.isEmpty(res)){
                         const data = JSON.parse(JSON.stringify(res))[0];
-                        delete data.verif_token;
-                        delete data.password;
-                        let token =  jwt.sign(data, 'MyChouaibKEY');
+                        let datatoken = JSON.parse(JSON.stringify(res))[0];
+                        delete datatoken.password;
+                        delete datatoken.verif_token;
+                        let token =  jwt.sign(datatoken, 'MyChouaibKEY');
                         data.token = token;
                         resolve(data);
                     }

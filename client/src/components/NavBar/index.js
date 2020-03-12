@@ -80,7 +80,6 @@ function NavBar(props) {
   const { handleProfileOpen, user, handleLogout } = props;
   const loggedInMenu = [
     { "text": "Home", "path": "/", icon: <AppsIcon color="inherit" /> },
-    { "text": "Profile", "path": "/profile", icon: <PersonIcon color="inherit" /> },
     { "text": "Watch List", "path": "/watchList", icon: <PersonIcon color="inherit" /> },
   ];
   const loggedOutMenu = [
@@ -142,8 +141,16 @@ function NavBar(props) {
             </IconButton>}
 
             {user && user.token && <Button color="primary" onClick={handleLogout}><ExitToAppIcon /></Button>}
-            {user === null && <Button color="primary" >LOGIN</Button>}
-            {user === null && <Button color="primary" >REGISTER</Button>}
+            {user === null &&   <Button color="primary">
+                <Link to="/" >
+                  LOGIN
+                </Link>
+              </Button>}
+              {user === null &&   <Button color="primary">
+                <Link to="/register" >
+                  REGISTER
+                </Link>
+              </Button>}
           </Toolbar>
         </AppBar>
 
