@@ -57,15 +57,6 @@ You must have phpmyadmin launched
     cd client && serve -s build -l [PORT]
 <hr>
 
-> # You Don't have npm ?
-
-    brew install npm
-
-
-
-<hr>
-<hr>
-
 Created By : 
 - * SIFFEDINE Ilyas
 - * GOULMANE Mouad
