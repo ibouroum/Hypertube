@@ -1,7 +1,7 @@
 
 
                          WELCOME TO OUR LOCAL VERSION OF Netflix
-                         ![logo](client/public/logo.png)
+                         
 <hr>
 
 > # Hypertube
