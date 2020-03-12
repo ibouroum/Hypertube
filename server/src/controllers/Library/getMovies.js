@@ -20,16 +20,11 @@ getMovies = async (req, res) => {
     {
         if(getDate(seenMovies[i].date))
         {
-            await user.delete("deleteMovie",seenMovies[i].imdb)
             fs.remove(`./src/movies_Hash/torrent-stream/${seenMovies[i].hash}`, err => {
                 if (err) return console.error(err)
-              
-                console.log('success!')
               })
               fs.remove(`./src/movies_Hash/torrent-stream/${seenMovies[i].hash}.torrent`, err => {
                 if (err) return console.error(err)
-              
-                console.log('success!')
               })
         }
     }

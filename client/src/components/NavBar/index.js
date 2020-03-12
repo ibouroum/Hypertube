@@ -21,6 +21,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AppsIcon from '@material-ui/icons/Apps';
 import PersonIcon from '@material-ui/icons/Person';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 
@@ -80,11 +81,11 @@ function NavBar(props) {
   const { handleProfileOpen, user, handleLogout } = props;
   const loggedInMenu = [
     { "text": "Home", "path": "/", icon: <AppsIcon color="inherit" /> },
-    { "text": "Watch List", "path": "/watchList", icon: <PersonIcon color="inherit" /> },
+    { "text": "Watch list", "path": "/watchList", icon: <VisibilityIcon color="inherit" /> },
   ];
   const loggedOutMenu = [
-    { "text": "Se connecter", "path": "/login", icon: <LockOpenIcon color="inherit" /> },
-    { "text": "inscription", "path": "/register", icon: <LockOpenIcon color="inherit" /> },
+    { "text": "Login", "path": "/login", icon: <LockOpenIcon color="inherit" /> },
+    { "text": "Register", "path": "/register", icon: <LockOpenIcon color="inherit" /> },
   ];
   let menu = [];
   if (user && user.token) {

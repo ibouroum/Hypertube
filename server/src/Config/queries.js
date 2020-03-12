@@ -31,7 +31,6 @@ const queries = {
        
     },
     DELETE : {
-        deleteMovie : "DELETE FROM movies WHERE imdb = ?"
     },
 }
 

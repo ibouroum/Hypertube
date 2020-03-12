@@ -5,15 +5,21 @@ let cloudscraper = require('cloudscraper');
 
 getMovieDataById = (id) => {
     return new Promise((resolve, reject) => {
-        let imdb = null;
+        try {
+            let imdb = null;
         var req = unirest("GET",
             `https://api.themoviedb.org/3/movie/${id}?api_key=0f87bface5c69fcf394fc387f33049fa&language=en-US`);
         req.end(function (result) {
-            if (result.error) console.log(result.error)
+            if (result.error) console.log("timeout in server themoviedb")
             if (result.body.imdb_id)
                 imdb = result.body.imdb_id;
             resolve(imdb);
         });
+        } catch (error) {
+            console.log('getMovieData timeout')
+            return null;
+        }
+        
     })
 }
 getMovieData = async (req, res) => {
@@ -41,7 +47,7 @@ getMovieData = async (req, res) => {
      for(var i = 0;i< subtitles.length;i++)
       {
         const t =  fs.readFileSync('./subtitles/'+subtitles[i].fileName, 'utf8')
-        let buff = new Buffer(t);
+        let buff = new Buffer.from(t);
         let base64data = buff.toString('base64');
         subtitles[i].fileName = base64data
       }

@@ -30,6 +30,12 @@ const convertFile = file => {
       return file.createReadStream();
     }
   };
+  const needToConvert = ext =>{
+    if(ext === "webm" || ext === "mkv")
+      return true;
+    else
+    return false
+  }
 
 
   const getTorrentFile = (hash) =>{
@@ -39,7 +45,6 @@ const convertFile = file => {
     })
    
     return new Promise((resolve, reject) =>{
-      console.log(engs)
       let b = _.find(engs, {hash: hash});
       if (typeof(b) === "object")
       {
@@ -86,7 +91,10 @@ const convertFile = file => {
     res.setHeader('Accept-Ranges', 'bytes');
     getTorrentFile(hash)
     .then((file)=>{
-      res.setHeader('Content-Length', file.length);
+      const conv = needToConvert(file.ext);
+      if(!conv)
+      {
+        res.setHeader('Content-Length', file.length);
       res.setHeader('Content-Type', `video/${file.ext}`);
       const ranges = parseRange(file.length, req.headers.range, { combine: true });
       if (ranges === -1) {
@@ -106,6 +114,14 @@ const convertFile = file => {
         if (req.method !== 'GET') return res.end();
         return file.createReadStream(range).pipe(res);
       }
+    }
+      else
+      {
+        convertFile(file).pipe(res);
+      }
+       
+      
+      
     }).catch(function (e) {
       console.error(e);
       res.end(e);

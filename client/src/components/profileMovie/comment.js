@@ -57,20 +57,22 @@ const Comments = (props) => {
         ))}
       </List>
       {comments && comments.length === 0 && <p>No comments found</p>}
-      <TextField
-        className={classes.input}
-        placeholder="Add comment ..."
-        InputProps={{
-          'aria-label': 'description',
-          'endAdornment': (
-            <InputAdornment>
-              <Button onClick={handleAddComment}>ADD</Button>
-            </InputAdornment>
-          )
-        }}
-        onChange={handleChangeComment}
-        variant='outlined'
-      />
+      <form onSubmit={handleAddComment}>
+        <TextField
+          className={classes.input}
+          placeholder="Add comment ..."
+          InputProps={{
+            'aria-label': 'description',
+            'endAdornment': (
+              <InputAdornment>
+                <Button type="submit">ADD</Button>
+              </InputAdornment>
+            )
+          }}
+          onChange={handleChangeComment}
+          variant='outlined'
+        />
+      </form>
     </>
   )
 }

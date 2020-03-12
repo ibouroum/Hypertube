@@ -54,9 +54,7 @@ const Profile = (props) => {
     return (
         <div >
             <div className={classes.img} style={{ width: "250px", height: "250px", }} >
-                <Avatar className={classes.img}>
-                    <img style={{ width: "250px", height: "250px", }} src={`http://localhost:5000/images/${user.image}`} alt="" />
-                </Avatar>
+                <Avatar className={classes.img} src={`http://localhost:5000/images/${user.image}`} alt="" />
                 <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={event => fileChangedHandler(event)} />
                 <label htmlFor="icon-button-file">
                     <Button color="primary" aria-label="upload picture" component="span">

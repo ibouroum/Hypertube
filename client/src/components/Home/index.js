@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import Select from 'react-select';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { CircularProgress, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import InputAdornment from "@material-ui/core/InputAdornment";
 import './home.css';
 
@@ -34,8 +34,10 @@ const useStyles = makeStyles(theme => ({
     },
     loading: {
         position: 'fixed',
-        top: '50%',
-    }
+        top: '10%',
+        width: '100%',
+        height: '30%'
+    },
 }));
 
 export default function Home(props) {
@@ -155,7 +157,10 @@ export default function Home(props) {
                     </Grid>
                 </>
             }
-            {movies.status === 'loading' && <Grid className={classes.loading} container justify="center"><CircularProgress fontSize="large" color="primary" /></Grid>}
+            {movies.status === 'loading' &&
+                <Grid className={classes.loading} container justify="center">
+                    <img src={`https://media.giphy.com/media/UpDq7PzULQYhlIZKMC/giphy.gif`} alt="s" />
+                </Grid>}
         </>
     );
 }

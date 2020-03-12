@@ -56,8 +56,10 @@ const ViewMovieContainer = (props) => {
 
     const handleChangeComment = e => setComment(e.target.value);
 
-    const handleAddComment = () => {
+    const handleAddComment = (form) => {
+        form.preventDefault();
         comment && comment.length < 50 && addComment({ code: movieDetails.imdbID, user_id: user.id, content: comment });
+        setComment("");
     }
 
     const handleViewClose = () => {
