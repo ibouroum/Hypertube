@@ -13,7 +13,6 @@ const getFilteredMovies = (filter) => {
             let result1 = JSON.parse(resp);
             if(result1.length > 0 && result1[0].title)
             {
-                //result1.sort((a, b) => {return b.rating.percentage - a.rating.percentage})
                 resolve(result1);
             }
             else
@@ -23,7 +22,6 @@ const getFilteredMovies = (filter) => {
                     let result2 = JSON.parse(resp);
                     if(result2.status === 'ok' && result2.data.movies.length > 0)
                     {
-                        //result2.data.movies.sort((a, b) => {return b.rating - a.rating})
                         resolve(result2.data.movies);
                     }
                 })

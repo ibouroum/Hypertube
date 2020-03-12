@@ -2,8 +2,38 @@ const getAllMovies = require('./getAllMovies');
 const getFilteredMovies = require('./getFilteredMovies');
 const getMoviesByName = require('./getMoviesByName');
 const tools = require('../../tools/index');
+const user = require('../../models/user')
+const fs = require('fs-extra')
+const getDate = (date) =>{
+    const today = new Date();
+    const movieDate = new Date(date);
+    const diff = today - movieDate;
+    if(diff >= 2592000000)
+        return true;
+    else
+        return false
+}
 
 getMovies = async (req, res) => {
+    const seenMovies = await user.select("getAllSeenMovies");
+    for(var i =0; i < seenMovies.length; i++)
+    {
+        if(getDate(seenMovies[i].date))
+        {
+            await user.delete("deleteMovie",seenMovies[i].imdb)
+            fs.remove(`./src/movies_Hash/torrent-stream/${seenMovies[i].hash}`, err => {
+                if (err) return console.error(err)
+              
+                console.log('success!')
+              })
+              fs.remove(`./src/movies_Hash/torrent-stream/${seenMovies[i].hash}.torrent`, err => {
+                if (err) return console.error(err)
+              
+                console.log('success!')
+              })
+        }
+    }
+
     const filter = req.body.filter;
     if(tools.isSort(filter.sortBy) && tools.isCategory(filter.category) && tools.isTitle(filter.title) && tools.isPage(filter.page)){
         if(filter.title !== null)

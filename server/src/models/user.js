@@ -40,8 +40,6 @@ module.exports = {
         })
     },
     update: function (type, value){
-        console.log(type)
-        console.log(value)
         return new Promise ((resolve, reject) => {
             conn.query(UPDATE[type], value,(err,res) => {
                 if(err)
@@ -62,21 +60,35 @@ module.exports = {
         })
     },
     select: function (type, value){
+    
         return new Promise ((resolve, reject) => {
             conn.query(SELECT[type], value,(err,res) => {
                 if(err)
                     reject(err);
                 else
-                {
+                { 
                     if(tools.isEmpty(res))
                         resolve(false)
                     else
-                    resolve(JSON.parse(JSON.stringify(res[0])));
+                    resolve(JSON.parse(JSON.stringify(res)));
+                }
+            });
+        })
+    },
+    getComment: function (type, value){
+        return new Promise ((resolve, reject) => {
+            conn.query(SELECT[type], value,(err,res) => {
+                if(err)
+                    reject(err);
+                else
+                { 
+                    resolve(JSON.parse(JSON.stringify(res)));
                 }
             });
         })
     },
     delete: function (type, value){
+
         return new Promise ((resolve, reject) => {
             conn.query(DELETE[type], value,(err,res) => {
                 if(err)
@@ -123,17 +135,6 @@ module.exports = {
                     reject (err);
                 else
                     resolve (res);
-            });
-        })
-    },
-    updateInfo: function (gender, sexOrient, birthday, age, bio, id) {
-        return new Promise ((resolve, reject) => {
-            conn.query(UPDATE.UpdateInfo, [gender, sexOrient, birthday, age, bio, id], (err,res) => {
-                if(err)
-                    reject(err);
-                else{
-                    resolve(res);
-                }
             });
         })
     },

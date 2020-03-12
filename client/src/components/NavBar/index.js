@@ -22,7 +22,6 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import AppsIcon from '@material-ui/icons/Apps';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { useTranslation } from 'react-i18next';
 
 
 const drawerWidth = 240;
@@ -78,11 +77,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function NavBar(props) {
-  const { handleProfileOpen, user, handleLogout, handleChangeLang } = props;
-  const { t } = useTranslation();
+  const { handleProfileOpen, user, handleLogout } = props;
   const loggedInMenu = [
     { "text": "Home", "path": "/", icon: <AppsIcon color="inherit" /> },
     { "text": "Profile", "path": "/profile", icon: <PersonIcon color="inherit" /> },
+    { "text": "Watch List", "path": "/watchList", icon: <PersonIcon color="inherit" /> },
   ];
   const loggedOutMenu = [
     { "text": "Se connecter", "path": "/login", icon: <LockOpenIcon color="inherit" /> },
@@ -131,20 +130,20 @@ function NavBar(props) {
               <MenuIcon />
             </IconButton>
 
-            <Typography variant="h6"  color="primary" className={classes.title}>
-              <Link to="/" style={{textDecoration: 'none', color:'inherit'}}>
-                {t('login_screen.username')}
-              </Link>
-          </Typography>
-          <Button color="primary" onClick={handleChangeLang}>ChangeLang</Button>
-
+            <Typography variant="h6" color="primary" className={classes.title}>
+              <IconButton>
+                <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <img style={{ height: '40px', width: '40px' }} src='https://i.imgur.com/Wj3SgYr.png' />
+                </Link>
+              </IconButton>
+            </Typography>
             {user && user.token && <IconButton onClick={handleProfileOpen}>
-                <PersonIcon color="primary"/>
+              <PersonIcon color="primary" />
             </IconButton>}
 
-            {user && user.token && <Button color="primary" onClick={handleLogout}><ExitToAppIcon/></Button>}
-            {user === null  && <Button color="primary" >LOGIN</Button>}
-            {user === null  && <Button color="primary" >REGISTER</Button>}
+            {user && user.token && <Button color="primary" onClick={handleLogout}><ExitToAppIcon /></Button>}
+            {user === null && <Button color="primary" >LOGIN</Button>}
+            {user === null && <Button color="primary" >REGISTER</Button>}
           </Toolbar>
         </AppBar>
 

@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     },
     input: {
         display: 'none',
-      },
+    },
     button: {
         display: 'block',
         marginLeft: 'auto',
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
         width: '200px',
         height: '200px',
     },
-    spacing:{
+    spacing: {
         margin: theme.spacing(4, 0, 4),
     }
 }));
@@ -55,14 +55,14 @@ const Profile = (props) => {
         <div >
             <div className={classes.img} style={{ width: "250px", height: "250px", }} >
                 <Avatar className={classes.img}>
-                    <img style={{ width: "250px", height: "250px", }} src={`http://localhost:5000/images/${user.image}`} alt=""/>
+                    <img style={{ width: "250px", height: "250px", }} src={`http://localhost:5000/images/${user.image}`} alt="" />
                 </Avatar>
-                    <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={event => fileChangedHandler(event)} />
-                    <label htmlFor="icon-button-file">
-                        <Button  color="primary" aria-label="upload picture" component="span">
-                            Modifier
+                <input accept="image/*" className={classes.input} id="icon-button-file" type="file" onChange={event => fileChangedHandler(event)} />
+                <label htmlFor="icon-button-file">
+                    <Button color="primary" aria-label="upload picture" component="span">
+                        Modifier
                         </Button>
-                    </label>
+                </label>
             </div>
             <form className={classes.spacing}>
                 <Grid container justify="center" spacing={2}>
@@ -124,7 +124,8 @@ const Profile = (props) => {
                         <FormLabel component="legend">Langue</FormLabel>
                         <Field component={RadioGroup} name="langue" required={true} options={[
                             { title: 'English', value: 'en' },
-                            { title: 'French', value: 'fr' }
+                            { title: 'French', value: 'fr' },
+                            { title: 'Arab', value: 'ar' }
                         ]}
                         />
                     </Grid>

@@ -64,7 +64,7 @@ passport.use(new GoogleStrategy({
       "google"+profile.emails[0].value, "Google" + profile.id];
       let currentUser = await  user.getUser('GetUserByOmni',omni_id);
       if (!currentUser) {
-        let image_name = new Date().toISOString() + username;
+        let image_name = new Date().toISOString() + username+".jpg";
         let Password = tools.generate(omni_id,username);
         let hashPassword = await bcrypt.hash(Password, 10);
         tools.download(profile.photos[0].value,"./public/images/" + image_name ,function(){})
@@ -95,7 +95,7 @@ async (accessToken, refreshToken, profile, done) => {
     "linkedin"+profile.emails[0].value, "Linkedin" + profile.id];
     let currentUser = await  user.getUser('GetUserByOmni',omni_id);
     if (!currentUser) {
-      let image_name = new Date().toISOString() + username;
+      let image_name = new Date().toISOString() + username+".jpg";
       let Password = tools.generate(omni_id,username);
       let hashPassword = await bcrypt.hash(Password, 10);
       tools.download(profile.photos[0].value,"./public/images/" + image_name ,function(){})
@@ -122,7 +122,7 @@ async (accessToken, refreshToken, profile, done) => {
     "github"+profile.username+"@gmail.com", "github" + profile.id];
     let currentUser = await  user.getUser('GetUserByOmni',omni_id);
     if (!currentUser) {
-      let image_name = new Date().toISOString() + username;
+      let image_name = new Date().toISOString() + username+".jpg";
       let Password = tools.generate(omni_id,username);
       let hashPassword = await bcrypt.hash(Password, 10);
       tools.download(profile.photos[0].value,"./public/images/" + image_name ,function(){})
@@ -151,7 +151,7 @@ passport.use(
         "spotify"+(profile.displayName).split(' ')[0]+"@gmail.com", "spotify" + profile.id];
         let currentUser = await  user.getUser('GetUserByOmni',omni_id);
         if (!currentUser) {
-          let image_name = new Date().toISOString() + username;
+          let image_name = new Date().toISOString() + username+".jpg";
           let Password = tools.generate(omni_id,username);
           let hashPassword = await bcrypt.hash(Password, 10);
           tools.download(profile.photos[0],"./public/images/" + image_name ,function(){})

@@ -1,7 +1,6 @@
 import { takeLatest, call,put,select, delay} from "redux-saga/effects";
 import {resetState} from "../actions/resetStateAction";
 import {editInfoError,sendImageError} from "../actions/profileAction";
-//import {addInfoError} from "../actions/addInfoAction";
 import { updateUserSuccess,updateImage} from '../actions/userAction';
 import {request} from './helper';
 
@@ -10,9 +9,7 @@ function *edit_Info ({data}) {
     try {
         const id = yield select((state) => state.user.id);
         const info = {...data,id}
-        
         const token = yield select((state) => state.user.token);
-        // console.log(info);
         const response = yield call(request, {
                 "url": "http://localhost:5000/editProfile",
                 "data": info,
@@ -38,7 +35,6 @@ function *edit_Info ({data}) {
 const sendPictures =
   function *sendPictures ({data}) {
     try {
-        console.log(data)
       const token = yield select((state) => state.user.token);
       const response = yield call(request, {
                 "url": "http://localhost:5000/upload",
@@ -46,12 +42,10 @@ const sendPictures =
                 "method": "post"
               },token);
               const res = response.data;  
-              console.log(res)
     if(res)
     {
      if(res.isValid === true)
      {
-       console.log('gffgfg')
       yield put(updateImage(res.data))
      }
         

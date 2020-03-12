@@ -1,41 +1,78 @@
 import React from 'react'
-import { Button, Comment, Form } from 'semantic-ui-react'
-import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
+import { Button, IconButton } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from "@material-ui/core/InputAdornment";
 import './index.css'
-const CommentExampleComment = () => {
-  
-  return ( 
-  <Comment.Group>
-    <Typography color="textSecondary" variant="h4" >Comments </Typography>
-    <Comment>
-      <Comment.Avatar  src='https://picsum.photos/200/300?grayscale' />
-      <Comment.Content>
-        <Comment.Author as='a'>Matt</Comment.Author>
-        <Comment.Metadata>
-          <div>Today at 5:42PM</div>
-        </Comment.Metadata>
-        <Comment.Text>How artistic!</Comment.Text>
-        <Divider  />
-      </Comment.Content>
-    </Comment>
-    <Comment>
-      <Comment.Avatar src='https://picsum.photos/200/300?grayscale' />
-      <Comment.Content>
-        <Comment.Author as='a'>Matt</Comment.Author>
-        <Comment.Metadata>
-          <div>Today at 5:42PM</div>
-        </Comment.Metadata>
-        <Comment.Text>How artistic!</Comment.Text>
-        <Divider  />
-      </Comment.Content>
-    </Comment>
-    <Form reply>
-      <Form.TextArea className="commentTextField"/>
-      <Button content='Add Reply' labelPosition='left' icon='edit' primary />
-    </Form>
-  </Comment.Group>
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+  },
+  inline: {
+    display: 'inline',
+  },
+  input: {
+    width: 360,
+  }
+}));
+
+const Comments = (props) => {
+  const { comments, handleAddComment, handleChangeComment, handleVp } = props;
+  const classes = useStyles();
+  return (
+    <>
+      <Typography color="textSecondary" variant="h4" >Comments </Typography>
+      <List className={classes.root}>
+        {comments && comments.length > 0 && comments.map((tile, index) => (
+          <ListItem alignItems="flex-start" key={index}>
+            <ListItemAvatar >
+              <IconButton onClick={(e) => handleVp(tile)}>
+                <Avatar alt={tile.username} src={`http://localhost:5000/images/${tile.image}`} />
+              </IconButton>
+            </ListItemAvatar>
+            <ListItemText
+              primary={<Typography variant="h6">{tile.username}</Typography>}
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    component="span"
+                    variant="body1"
+                    className={classes.inline}
+                    color="textPrimary"
+                  >
+                    {tile.content}
+                  </Typography>
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+        ))}
+      </List>
+      {comments && comments.length === 0 && <p>No comments found</p>}
+      <TextField
+        className={classes.input}
+        placeholder="Add comment ..."
+        InputProps={{
+          'aria-label': 'description',
+          'endAdornment': (
+            <InputAdornment>
+              <Button onClick={handleAddComment}>ADD</Button>
+            </InputAdornment>
+          )
+        }}
+        onChange={handleChangeComment}
+        variant='outlined'
+      />
+    </>
   )
 }
 
-export default CommentExampleComment
+export default Comments;
