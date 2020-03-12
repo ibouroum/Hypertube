@@ -1,7 +1,7 @@
 
 
                          WELCOME TO OUR LOCAL VERSION OF Netflix
-                         ![](client/public/logo.png)
+                         ![logo](client/public/logo.png)
 <hr>
 
 > # Hypertube
@@ -67,7 +67,7 @@ You must have phpmyadmin launched
 <hr>
 
 Created By : 
-- * ELMAKHLOUK Chouaib 
-- * BOUROUMANA Ismail
 - * SIFFEDINE Ilyas
 - * GOULMANE Mouad
+- * ELMAKHLOUK Chouaib 
+- * BOUROUMANA Ismail
