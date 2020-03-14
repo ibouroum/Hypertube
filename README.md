@@ -5,7 +5,7 @@
 <hr>
 
 > # Hypertube
-Web Application for searching and streaming films.- 1337 school (42 network) project.
+Web Application for searching and streaming films - 1337 school (42 network) project.
 
 <hr>
 
@@ -29,14 +29,14 @@ The page of the streaming film contain also a bunch of similiar films.
 
 <hr>
 
-> ## Back-end
+> # Back-end
 - Node.js
 - Express.js
 - MYSQL
 
 <hr>
 
-> ## Front-end
+> # Front-end
 - React.js (+hooks)
 - Redux (+ Redux form, Redux-saga)
 - Material-ui
@@ -44,8 +44,6 @@ The page of the streaming film contain also a bunch of similiar films.
 <hr>
 
 > # How to run it ?
-You must have phpmyadmin launched 
-
     cd client && npm install
 
     cd server && npm install
@@ -57,8 +55,23 @@ You must have phpmyadmin launched
     cd client && serve -s build -l [PORT]
 <hr>
 
-Created By : 
-- * SIFFEDINE Ilyas
-- * GOULMANE Mouad
-- * ELMAKHLOUK Chouaib 
-- * BOUROUMANA Ismail
+> # Screenshots
+    * Login
+        ![Login](server/public/images/login.png)
+    * Home
+        ![Home](server/public/images/home.png)
+        ![Sort](server/public/images/sort.png)
+    * Profile
+        ![Profile](server/public/images/chouaibProfile.png)
+    * Movie page
+        ![moviePage](server/public/images/profileMovie.png)
+        ![streaming](server/public/images/stream.png)
+    * Chat
+        ![chat](server/public/images/chat.png)
+<hr>
+
+> # Created By : 
+-  SIFFEDINE Ilyas
+-  GOULMANE Mouad
+-  ELMAKHLOUK Chouaib 
+-  BOUROUMANA Ismail
